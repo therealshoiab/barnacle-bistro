@@ -26,7 +26,6 @@ export const Home: React.FC = () => {
         ease: 'power3.out',
         delay: 0.35,
         stagger: 0.15,
-        clearProps: 'transform,opacity',
       }
     );
   }, []);
