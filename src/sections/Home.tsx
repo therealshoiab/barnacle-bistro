@@ -9,6 +9,8 @@ const Spline = React.lazy(() => import('@splinetool/react-spline'));
 export const Home: React.FC = () => {
   const [splineLoaded, setSplineLoaded] = useState(false);
   const [splineError, setSplineError] = useState(false);
+  const [isUrlChecking, setIsUrlChecking] = useState(true);
+  const [isUrlValid, setIsUrlValid] = useState(false);
 
   // Smooth scroll handler
   const scrollToSection = (selector: string) => {
@@ -24,24 +26,50 @@ export const Home: React.FC = () => {
     }
   };
 
+  // Verify Spline scene URL accessibility before rendering it
+  useEffect(() => {
+    if (!siteConfig.spline.sceneUrl) {
+      setIsUrlChecking(false);
+      setSplineError(true);
+      return;
+    }
+
+    fetch(siteConfig.spline.sceneUrl)
+      .then((res) => {
+        if (res.ok) {
+          setIsUrlValid(true);
+        } else {
+          console.warn(`Spline scene URL is not accessible (Status: ${res.status}). Falling back.`);
+          setSplineError(true);
+        }
+      })
+      .catch((err) => {
+        console.warn('Spline scene URL failed to load. Falling back.', err);
+        setSplineError(true);
+      })
+      .finally(() => {
+        setIsUrlChecking(false);
+      });
+  }, []);
+
   // Pre-load check (optional timeout fallback if 3D scene takes > 8 seconds)
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (!splineLoaded) {
+      if (!splineLoaded && !splineError) {
         // Force fallback if Spline is taking too long
         setSplineError(true);
       }
     }, 8000);
     return () => clearTimeout(timer);
-  }, [splineLoaded]);
+  }, [splineLoaded, splineError]);
 
   return (
     <section id="home" className="relative min-height-screen h-screen flex flex-col justify-between overflow-hidden">
       
       {/* 3D Scene / Fallback Background */}
       <div className="absolute inset-0 z-0">
-        {/* If Spline errored or we are displaying fallback */}
-        {(splineError || !siteConfig.spline.sceneUrl) ? (
+        {/* If Spline errored or check complete and URL is invalid */}
+        {(splineError || !isUrlValid) && !isUrlChecking ? (
           <div
             className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
             style={{
@@ -50,8 +78,8 @@ export const Home: React.FC = () => {
           />
         ) : (
           <>
-            {/* Loading / Skeleton Fallback Layer */}
-            {!splineLoaded && (
+            {/* Loading / Skeleton Fallback Layer during checking or loading */}
+            {(isUrlChecking || !splineLoaded) && (
               <div
                 className="absolute inset-0 bg-cover bg-center skeleton flex items-center justify-center transition-opacity duration-1000"
                 style={{
@@ -67,35 +95,37 @@ export const Home: React.FC = () => {
               </div>
             )}
             
-            {/* Spline Interactive Canvas with Error Boundary */}
-            <ErrorBoundary
-              fallback={
-                <div
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{
-                    backgroundImage: `linear-gradient(rgba(10, 11, 13, 0.6), rgba(10, 11, 13, 0.85)), url(${siteConfig.spline.fallbackImage})`,
-                  }}
-                />
-              }
-              onError={() => {
-                setSplineError(true);
-                setSplineLoaded(true);
-              }}
-            >
-              <Suspense fallback={null}>
-                <Spline
-                  scene={siteConfig.spline.sceneUrl}
-                  onLoad={() => setSplineLoaded(true)}
-                  onError={() => {
-                    setSplineError(true);
-                    setSplineLoaded(true); // Stop loader spinner
-                  }}
-                  className={`w-full h-full object-cover transition-opacity duration-1000 ${
-                    splineLoaded ? 'opacity-100' : 'opacity-0'
-                  }`}
-                />
-              </Suspense>
-            </ErrorBoundary>
+            {/* Spline Interactive Canvas with Error Boundary (rendered only if URL check passes) */}
+            {!isUrlChecking && isUrlValid && (
+              <ErrorBoundary
+                fallback={
+                  <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                      backgroundImage: `linear-gradient(rgba(10, 11, 13, 0.6), rgba(10, 11, 13, 0.85)), url(${siteConfig.spline.fallbackImage})`,
+                    }}
+                  />
+                }
+                onError={() => {
+                  setSplineError(true);
+                  setSplineLoaded(true);
+                }}
+              >
+                <Suspense fallback={null}>
+                  <Spline
+                    scene={siteConfig.spline.sceneUrl}
+                    onLoad={() => setSplineLoaded(true)}
+                    onError={() => {
+                      setSplineError(true);
+                      setSplineLoaded(true); // Stop loader spinner
+                    }}
+                    className={`w-full h-full object-cover transition-opacity duration-1000 ${
+                      splineLoaded ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  />
+                </Suspense>
+              </ErrorBoundary>
+            )}
             
             {/* Dark Overlay to make text legible over Spline elements */}
             <div 
