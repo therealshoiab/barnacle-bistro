@@ -3,6 +3,7 @@ export interface MenuItem {
   name: string;
   description: string;
   price: number;
+  image?: string;
   isPopular?: boolean;
   isSpicy?: boolean;
   isVeg?: boolean;
@@ -29,7 +30,6 @@ export interface Review {
   rating: number;
   text: string;
   date: string;
-  avatar: string;
 }
 
 export interface GalleryItem {
@@ -139,86 +139,86 @@ export const siteConfig = {
       id: 'starters',
       title: 'Starters & Fast Food',
       items: [
-        { id: 'st-1', name: 'Crispy French Fries', description: 'Golden, crispy potato fries lightly seasoned with sea salt.', price: 110 },
-        { id: 'st-2', name: 'Peri Peri French Fries', description: 'Crispy fries tossed in our signature hot peri peri spice mix.', price: 130, isPopular: true },
-        { id: 'st-3', name: 'Honey Chilli Potato', description: 'Crispy potato fingers glazed in a sweet and spicy honey chilli sauce.', price: 190 },
-        { id: 'st-4', name: 'Chicken Popcorn', description: 'Bite-sized tender chicken nuggets fried to crunchy perfection.', price: 210 },
-        { id: 'st-5', name: 'Barnacle Special Chicken Burger', description: 'Gourmet chicken patty, melted cheese, crisp lettuce, tomato, and bistro sauce.', price: 230, isPopular: true }
+        { id: 'st-1', name: 'Crispy French Fries', description: 'Golden, crispy potato fries lightly seasoned with sea salt.', price: 110, isVeg: true, image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&q=80&w=400' },
+        { id: 'st-2', name: 'Peri Peri French Fries', description: 'Crispy fries tossed in our signature hot peri peri spice mix.', price: 130, isPopular: true, isVeg: true, image: 'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&q=80&w=400' },
+        { id: 'st-3', name: 'Honey Chilli Potato', description: 'Crispy potato fingers glazed in a sweet and spicy honey chilli sauce.', price: 190, isVeg: true, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=400' },
+        { id: 'st-4', name: 'Chicken Popcorn', description: 'Bite-sized tender chicken nuggets fried to crunchy perfection.', price: 210, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&q=80&w=400' },
+        { id: 'st-5', name: 'Barnacle Special Chicken Burger', description: 'Gourmet chicken patty, melted cheese, crisp lettuce, tomato, and bistro sauce.', price: 230, isPopular: true, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=400' }
       ]
     },
     {
       id: 'momos',
       title: 'Momos (Steamed & Crispy)',
       items: [
-        { id: 'mo-1', name: 'Steamed Chicken Momos (8 Pcs)', description: 'Juicy, soft steamed dumplings packed with seasoned chicken mince.', price: 140 },
-        { id: 'mo-2', name: 'Fried Chicken Momos (8 Pcs)', description: 'Crisp, golden-fried chicken momos served with spicy red chutney.', price: 160 },
-        { id: 'mo-3', name: 'Kurkure Chicken Momos (8 Pcs)', description: 'Crispy, cornflake-crusted momos offering the ultimate crunch.', price: 180, isPopular: true },
-        { id: 'mo-4', name: 'Veg Steamed Momos (8 Pcs)', description: 'Classic dumplings stuffed with finely minced garden vegetables.', price: 110, isVeg: true },
-        { id: 'mo-5', name: 'Veg Kurkure Momos (8 Pcs)', description: 'Crispy-fried vegetable momos coated in crunchy flakes.', price: 150, isVeg: true }
+        { id: 'mo-1', name: 'Steamed Chicken Momos (8 Pcs)', description: 'Juicy, soft steamed dumplings packed with seasoned chicken mince.', price: 140, image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&q=80&w=400' },
+        { id: 'mo-2', name: 'Fried Chicken Momos (8 Pcs)', description: 'Crisp, golden-fried chicken momos served with spicy red chutney.', price: 160, image: 'https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&q=80&w=400' },
+        { id: 'mo-3', name: 'Kurkure Chicken Momos (8 Pcs)', description: 'Crispy, cornflake-crusted momos offering the ultimate crunch.', price: 180, isPopular: true, image: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&q=80&w=400' },
+        { id: 'mo-4', name: 'Veg Steamed Momos (8 Pcs)', description: 'Classic dumplings stuffed with finely minced garden vegetables.', price: 110, isVeg: true, image: 'https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&q=80&w=400' },
+        { id: 'mo-5', name: 'Veg Kurkure Momos (8 Pcs)', description: 'Crispy-fried vegetable momos coated in crunchy flakes.', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&q=80&w=400' }
       ]
     },
     {
       id: 'wazwan',
       title: 'Kashmiri Wazwan Delicacies',
       items: [
-        { id: 'wz-1', name: 'Mutton Rista (1 Pc)', description: 'Classic wazwan mutton meatball cooked in a rich saffron-infused red gravy.', price: 380, isPopular: true },
-        { id: 'wz-2', name: 'Mutton Gushtaba (1 Pc)', description: 'Succulent mutton meatball slow-cooked in a smooth, velvety curd gravy.', price: 390 },
-        { id: 'wz-3', name: 'Mutton Kanti', description: 'Tender mutton pieces sautéed with sliced onions, green chillies, and local spices.', price: 350, isSpicy: true },
-        { id: 'wz-4', name: 'Tabak Maaz (2 Pcs)', description: 'Deep-fried lamb ribs cooked in milk and spices. Crispy on the outside, tender inside.', price: 360 },
-        { id: 'wz-5', name: 'Chicken Kanti', description: 'Boneless chicken cubes pan-fried with green chillies, onions, and Kashmiri spices.', price: 290, isSpicy: true }
+        { id: 'wz-1', name: 'Mutton Rista (1 Pc)', description: 'Classic wazwan mutton meatball cooked in a rich saffron-infused red gravy.', price: 380, isPopular: true, image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400' },
+        { id: 'wz-2', name: 'Mutton Gushtaba (1 Pc)', description: 'Succulent mutton meatball slow-cooked in a smooth, velvety curd gravy.', price: 390, image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&q=80&w=400' },
+        { id: 'wz-3', name: 'Mutton Kanti', description: 'Tender mutton pieces sautéed with sliced onions, green chillies, and local spices.', price: 350, isSpicy: true, image: 'https://images.unsplash.com/photo-1574484284002-952d92a03a52?auto=format&fit=crop&q=80&w=400' },
+        { id: 'wz-4', name: 'Tabak Maaz (2 Pcs)', description: 'Deep-fried lamb ribs cooked in milk and spices. Crispy on the outside, tender inside.', price: 360, image: 'https://images.unsplash.com/photo-1529694157872-4e0c0f3b238b?auto=format&fit=crop&q=80&w=400' },
+        { id: 'wz-5', name: 'Chicken Kanti', description: 'Boneless chicken cubes pan-fried with green chillies, onions, and Kashmiri spices.', price: 290, isSpicy: true, image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&q=80&w=400' }
       ]
     },
     {
       id: 'biryani',
       title: 'Biryani & Rice',
       items: [
-        { id: 'by-1', name: 'Barnacle Special Mutton Biryani', description: 'Dum-cooked basmati rice layered with juicy mutton and spices.', price: 420, isPopular: true },
-        { id: 'by-2', name: 'Chicken Biryani (Half/Full)', description: 'Flavourful basmati rice cooked with marinated chicken pieces.', price: 220 },
-        { id: 'by-3', name: 'Plain Basmati Rice', description: 'Steamed premium long-grain aromatic basmati rice.', price: 90, isVeg: true },
-        { id: 'by-4', name: 'Jeera Rice', description: 'Basmati rice tempered with cumin seeds and fresh coriander.', price: 120, isVeg: true },
-        { id: 'by-5', name: 'Kashmiri Pulao', description: 'Sweetish rice preparation loaded with local dry fruits and fresh fruits.', price: 210, isVeg: true }
+        { id: 'by-1', name: 'Barnacle Special Mutton Biryani', description: 'Dum-cooked basmati rice layered with juicy mutton and spices.', price: 420, isPopular: true, image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&q=80&w=400' },
+        { id: 'by-2', name: 'Chicken Biryani (Half/Full)', description: 'Flavourful basmati rice cooked with marinated chicken pieces.', price: 220, image: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&q=80&w=400' },
+        { id: 'by-3', name: 'Plain Basmati Rice', description: 'Steamed premium long-grain aromatic basmati rice.', price: 90, isVeg: true, image: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&q=80&w=400' },
+        { id: 'by-4', name: 'Jeera Rice', description: 'Basmati rice tempered with cumin seeds and fresh coriander.', price: 120, isVeg: true, image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&q=80&w=400' },
+        { id: 'by-5', name: 'Kashmiri Pulao', description: 'Sweetish rice preparation loaded with local dry fruits and fresh fruits.', price: 210, isVeg: true, image: 'https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&q=80&w=400' }
       ]
     },
     {
       id: 'maincourse',
       title: 'Main Course (North Indian)',
       items: [
-        { id: 'mc-1', name: 'Butter Chicken Masala', description: 'Tandoori grilled chicken chunks cooked in a rich, buttery, creamy tomato gravy.', price: 340, isPopular: true },
-        { id: 'mc-2', name: 'Kadai Chicken', description: 'Spicy chicken cooked in a traditional iron wok with bell peppers and fresh ground spices.', price: 320, isSpicy: true },
-        { id: 'mc-3', name: 'Paneer Butter Masala', description: 'Cottage cheese cubes folded into a creamy, mildly sweet tomato-onion gravy.', price: 260, isVeg: true },
-        { id: 'mc-4', name: 'Dal Makhani', description: 'Black lentils and kidney beans slow-cooked overnight, finished with fresh butter and cream.', price: 190, isVeg: true },
-        { id: 'mc-5', name: 'Mix Veg Curry', description: 'Assorted seasonal vegetables tossed in a semi-dry onion-tomato gravy.', price: 180, isVeg: true }
+        { id: 'mc-1', name: 'Butter Chicken Masala', description: 'Tandoori grilled chicken chunks cooked in a rich, buttery, creamy tomato gravy.', price: 340, isPopular: true, image: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=400' },
+        { id: 'mc-2', name: 'Kadai Chicken', description: 'Spicy chicken cooked in a traditional iron wok with bell peppers and fresh ground spices.', price: 320, isSpicy: true, image: 'https://images.unsplash.com/photo-1574484284002-952d92a03a52?auto=format&fit=crop&q=80&w=400' },
+        { id: 'mc-3', name: 'Paneer Butter Masala', description: 'Cottage cheese cubes folded into a creamy, mildly sweet tomato-onion gravy.', price: 260, isVeg: true, image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&q=80&w=400' },
+        { id: 'mc-4', name: 'Dal Makhani', description: 'Black lentils and kidney beans slow-cooked overnight, finished with fresh butter and cream.', price: 190, isVeg: true, image: 'https://images.unsplash.com/photo-1546549032-9571cd6b27df?auto=format&fit=crop&q=80&w=400' },
+        { id: 'mc-5', name: 'Mix Veg Curry', description: 'Assorted seasonal vegetables tossed in a semi-dry onion-tomato gravy.', price: 180, isVeg: true, image: 'https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&q=80&w=400' }
       ]
     },
     {
       id: 'breads',
       title: 'Breads & Accompaniments',
       items: [
-        { id: 'br-1', name: 'Plain Tandoori Roti', description: 'Traditional whole-wheat flatbread baked in a clay oven.', price: 20, isVeg: true },
-        { id: 'br-2', name: 'Butter Tandoori Roti', description: 'Clay-oven baked flatbread brushed with premium butter.', price: 25, isVeg: true },
-        { id: 'br-3', name: 'Butter Naan', description: 'Soft, leavened flatbread topped with butter.', price: 50, isVeg: true },
-        { id: 'br-4', name: 'Garlic Naan', description: 'Soft naan topped with minced garlic and butter.', price: 70, isVeg: true },
-        { id: 'br-5', name: 'Lacha Paratha', description: 'Multi-layered flaky whole-wheat bread baked in tandoor.', price: 60, isVeg: true }
+        { id: 'br-1', name: 'Plain Tandoori Roti', description: 'Traditional whole-wheat flatbread baked in a clay oven.', price: 20, isVeg: true, image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=400' },
+        { id: 'br-2', name: 'Butter Tandoori Roti', description: 'Clay-oven baked flatbread brushed with premium butter.', price: 25, isVeg: true, image: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&q=80&w=400' },
+        { id: 'br-3', name: 'Butter Naan', description: 'Soft, leavened flatbread topped with butter.', price: 50, isVeg: true, image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&q=80&w=400' },
+        { id: 'br-4', name: 'Garlic Naan', description: 'Soft naan topped with minced garlic and butter.', price: 70, isVeg: true, image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=400' },
+        { id: 'br-5', name: 'Lacha Paratha', description: 'Multi-layered flaky whole-wheat bread baked in tandoor.', price: 60, isVeg: true, image: 'https://images.unsplash.com/photo-1506280754576-f6fa8a873550?auto=format&fit=crop&q=80&w=400' }
       ]
     },
     {
       id: 'beverages',
       title: 'Beverages & Kahwa',
       items: [
-        { id: 'bv-1', name: 'Kashmiri Kahwa', description: 'Saffron green tea brewed with cinnamon, cardamom, and almond flakes.', price: 90, isPopular: true },
-        { id: 'bv-2', name: 'Noon Chai', description: 'Traditional Kashmiri pink tea, salty, creamy, and topped with milk skin.', price: 70 },
-        { id: 'bv-3', name: 'Fresh Mint Mojito', description: 'Refreshing blend of fresh mint leaves, lime juice, sugar, and club soda.', price: 130, isVeg: true },
-        { id: 'bv-4', name: 'Cold Coffee with Ice Cream', description: 'Chilled blended milk, espresso, and sugar, topped with a scoop of vanilla ice cream.', price: 150, isVeg: true },
-        { id: 'bv-5', name: 'Fresh Lime Soda (Sweet/Salted)', description: 'Zesty fresh lime juice mixed with fresh soda water.', price: 80, isVeg: true }
+        { id: 'bv-1', name: 'Kashmiri Kahwa', description: 'Saffron green tea brewed with cinnamon, cardamom, and almond flakes.', price: 90, isPopular: true, isVeg: true, image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=400' },
+        { id: 'bv-2', name: 'Noon Chai', description: 'Traditional Kashmiri pink tea, salty, creamy, and topped with milk skin.', price: 70, isVeg: true, image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400' },
+        { id: 'bv-3', name: 'Fresh Mint Mojito', description: 'Refreshing blend of fresh mint leaves, lime juice, sugar, and club soda.', price: 130, isVeg: true, image: 'https://images.unsplash.com/photo-1523371054106-bbf80586c38c?auto=format&fit=crop&q=80&w=400' },
+        { id: 'bv-4', name: 'Cold Coffee with Ice Cream', description: 'Chilled blended milk, espresso, and sugar, topped with a scoop of vanilla ice cream.', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&q=80&w=400' },
+        { id: 'bv-5', name: 'Fresh Lime Soda (Sweet/Salted)', description: 'Zesty fresh lime juice mixed with fresh soda water.', price: 80, isVeg: true, image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&q=80&w=400' }
       ]
     },
     {
       id: 'desserts',
       title: 'Desserts',
       items: [
-        { id: 'ds-1', name: 'Kesari Kheer', description: 'Traditional slow-cooked saffron rice pudding topped with almonds and pistachios.', price: 110, isVeg: true },
-        { id: 'ds-2', name: 'Gulab Jamun (2 Pcs)', description: 'Warm, soft milk-solid dumplings soaked in a cardamom-infused sugar syrup.', price: 80, isVeg: true },
-        { id: 'ds-3', name: 'Hot Brownie with Vanilla Ice Cream', description: 'Rich chocolate fudge brownie served hot with a scoop of vanilla ice cream.', price: 180, isVeg: true }
+        { id: 'ds-1', name: 'Kesari Kheer', description: 'Traditional slow-cooked saffron rice pudding topped with almonds and pistachios.', price: 110, isVeg: true, image: 'https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&q=80&w=400' },
+        { id: 'ds-2', name: 'Gulab Jamun (2 Pcs)', description: 'Warm, soft milk-solid dumplings soaked in a cardamom-infused sugar syrup.', price: 80, isVeg: true, image: 'https://images.unsplash.com/photo-1601303516534-a3f5aca89e87?auto=format&fit=crop&q=80&w=400' },
+        { id: 'ds-3', name: 'Hot Brownie with Vanilla Ice Cream', description: 'Rich chocolate fudge brownie served hot with a scoop of vanilla ice cream.', price: 180, isVeg: true, image: 'https://images.unsplash.com/photo-1564355808539-22fda35bed7e?auto=format&fit=crop&q=80&w=400' }
       ]
     }
   ] as MenuCategory[],
@@ -230,32 +230,28 @@ export const siteConfig = {
       author: 'Sameer Wani',
       rating: 5,
       text: 'One of the best dining places in Srinagar! The Kurkure Momos are exceptionally crunchy and flavorful. The ambiance is warm and has a beautiful frosted-glass premium aesthetic. Highly recommended!',
-      date: '1 week ago',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150'
+      date: '1 week ago'
     },
     {
       id: 'rev-2',
       author: 'Mehak Bhat',
       rating: 5,
       text: 'The Kashmiri Wazwan dishes, especially Rista and Gushtaba, are absolutely authentic and melt-in-the-mouth. Hospitality is 10/10. It is a premium experience that doesn’t burn a hole in your pocket.',
-      date: '3 weeks ago',
-      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150'
+      date: '3 weeks ago'
     },
     {
       id: 'rev-3',
       author: 'Irfan Dar',
       rating: 4,
       text: 'A great place in Hyderpora to chill with family. Their Special Mutton Biryani is incredibly aromatic and flavorful. Very friendly staff. Ordering via WhatsApp was quick and simple.',
-      date: '1 month ago',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150'
+      date: '1 month ago'
     },
     {
       id: 'rev-4',
       author: 'Sabrina Syed',
       rating: 5,
       text: 'Such an elegant cafe. The dark mode theme of the bistro matches Srinagar’s evening vibes. Their Kashmiri Kahwa is very authentic, packed with saffron and almonds. Will visit again!',
-      date: '2 months ago',
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150'
+      date: '2 months ago'
     }
   ] as Review[],
 
