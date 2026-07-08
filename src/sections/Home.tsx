@@ -1,6 +1,7 @@
 import React, { useState, Suspense, useEffect } from 'react';
 import { ChevronDown, Star, Clock, MapPin, ShoppingBag } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
+import { ErrorBoundary } from '../components/ErrorBoundary';
 
 // Lazy load the Spline component for faster initial page load
 const Spline = React.lazy(() => import('@splinetool/react-spline'));
@@ -66,20 +67,35 @@ export const Home: React.FC = () => {
               </div>
             )}
             
-            {/* Spline Interactive Canvas */}
-            <Suspense fallback={null}>
-              <Spline
-                scene={siteConfig.spline.sceneUrl}
-                onLoad={() => setSplineLoaded(true)}
-                onError={() => {
-                  setSplineError(true);
-                  setSplineLoaded(true); // Stop loader spinner
-                }}
-                className={`w-full h-full object-cover transition-opacity duration-1000 ${
-                  splineLoaded ? 'opacity-100' : 'opacity-0'
-                }`}
-              />
-            </Suspense>
+            {/* Spline Interactive Canvas with Error Boundary */}
+            <ErrorBoundary
+              fallback={
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `linear-gradient(rgba(10, 11, 13, 0.6), rgba(10, 11, 13, 0.85)), url(${siteConfig.spline.fallbackImage})`,
+                  }}
+                />
+              }
+              onError={() => {
+                setSplineError(true);
+                setSplineLoaded(true);
+              }}
+            >
+              <Suspense fallback={null}>
+                <Spline
+                  scene={siteConfig.spline.sceneUrl}
+                  onLoad={() => setSplineLoaded(true)}
+                  onError={() => {
+                    setSplineError(true);
+                    setSplineLoaded(true); // Stop loader spinner
+                  }}
+                  className={`w-full h-full object-cover transition-opacity duration-1000 ${
+                    splineLoaded ? 'opacity-100' : 'opacity-0'
+                  }`}
+                />
+              </Suspense>
+            </ErrorBoundary>
             
             {/* Dark Overlay to make text legible over Spline elements */}
             <div 
