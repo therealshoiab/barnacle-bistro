@@ -84,8 +84,8 @@ const App: React.FC = () => {
       },
       {
         root: null,
-        rootMargin: '0px 0px -10% 0px', // Trigger slightly before element enters viewport
-        threshold: 0.05,
+        rootMargin: '0px 0px 100px 0px', // Trigger 100px before entering viewport for smooth experience
+        threshold: 0, // Trigger immediately when entering view
       }
     );
 

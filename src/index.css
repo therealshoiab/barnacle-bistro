@@ -492,6 +492,10 @@ body.light-theme .glass-navbar {
     transform: translateY(0) translateX(-50%);
     animation-timing-function: cubic-bezier(0,0,0.2,1);
   }
+.bottom-24 { bottom: 96px; }
+.hero-reveal {
+  opacity: 0;
+  transform: translateY(30px);
 }
 
 /* Responsive display and flex */

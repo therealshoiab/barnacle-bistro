@@ -2,6 +2,7 @@ import React, { useState, Suspense, useEffect } from 'react';
 import { ChevronDown, Star, Clock, MapPin, ShoppingBag } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
 import { ErrorBoundary } from '../components/ErrorBoundary';
+import gsap from 'gsap';
 
 // Lazy load the Spline component for faster initial page load
 const Spline = React.lazy(() => import('@splinetool/react-spline'));
@@ -9,6 +10,26 @@ const Spline = React.lazy(() => import('@splinetool/react-spline'));
 export const Home: React.FC = () => {
   const [splineLoaded, setSplineLoaded] = useState(false);
   const [splineError, setSplineError] = useState(false);
+
+  // Animate hero elements immediately on mount for premium stagger entry
+  useEffect(() => {
+    gsap.fromTo(
+      '.hero-reveal',
+      {
+        opacity: 0,
+        y: 30,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out',
+        delay: 0.35,
+        stagger: 0.15,
+        clearProps: 'transform,opacity',
+      }
+    );
+  }, []);
   const [isUrlChecking, setIsUrlChecking] = useState(true);
   const [isUrlValid, setIsUrlValid] = useState(false);
 
@@ -140,26 +161,26 @@ export const Home: React.FC = () => {
 
       {/* Hero Content (Centered) */}
       <div className="container mx-auto px-6 flex-1 flex flex-col justify-center items-center text-center relative z-10 pt-20">
-        <div className="reveal-up max-w-3xl flex flex-col items-center gap-6">
+        <div className="max-w-3xl flex flex-col items-center gap-6">
           
           {/* Welcome Badge */}
-          <div className="glass-panel px-4 py-1.5 rounded-full flex items-center gap-2 border-[var(--border-glass)] text-xs font-semibold tracking-widest text-[var(--accent)] uppercase mb-2">
+          <div className="hero-reveal glass-panel px-4 py-1.5 rounded-full flex items-center gap-2 border-[var(--border-glass)] text-xs font-semibold tracking-widest text-[var(--accent)] uppercase mb-2">
             <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
             Now Serving Hyderpora, Srinagar
           </div>
 
           {/* Restaurant Title */}
-          <h1 className="text-5xl md:text-7xl font-serif font-bold text-white tracking-tight leading-none">
+          <h1 className="hero-reveal text-5xl md:text-7xl font-serif font-bold text-white tracking-tight leading-none">
             {siteConfig.brand.name}
           </h1>
 
           {/* Tagline */}
-          <p className="text-lg md:text-2xl text-[var(--text-secondary)] font-light tracking-wide max-w-2xl leading-relaxed">
+          <p className="hero-reveal text-lg md:text-2xl text-[var(--text-secondary)] font-light tracking-wide max-w-2xl leading-relaxed">
             {siteConfig.brand.tagline}
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-6">
+          <div className="hero-reveal flex flex-col sm:flex-row gap-4 mt-6">
             <button
               onClick={() => scrollToSection('#menu')}
               className="btn-primary"
