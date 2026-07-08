@@ -161,6 +161,35 @@ a {
   border-color: var(--border-hover);
 }
 
+/* Section subtitle label — used on all pages, must adapt to theme */
+.section-title-sub {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--primary-color);
+  margin-bottom: 0.75rem;
+}
+
+/* Theme-aware form inputs — prevents invisible text in light mode */
+input, textarea, select {
+  color: var(--text-heading);
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted);
+}
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
 /* Premium Button Styling */
 .btn {
   display: inline-flex;

@@ -149,7 +149,7 @@ export default function Signatures() {
           font-size: 1.15rem;
           font-weight: 600;
           font-family: "'Playfair Display', serif";
-          color: #ffffff;
+          color: var(--text-heading);
           line-height: 1.3;
           margin-bottom: 0.3rem;
         }

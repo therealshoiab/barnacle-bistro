@@ -42,7 +42,7 @@ export default function OrderOnline() {
               <span className="order-badge">
                 Partner Delivery
               </span>
-              <h3 style={{ fontSize: '1.6rem', fontFamily: "'Playfair Display', serif", color: '#ffffff' }}>
+              <h3 style={{ fontSize: '1.6rem', fontFamily: "'Playfair Display', serif", color: 'var(--text-heading)' }}>
                 Order via Delivery Apps
               </h3>
               <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', fontWeight: 300, lineHeight: '1.6' }}>
@@ -95,7 +95,7 @@ export default function OrderOnline() {
               <span className="order-badge">
                 Direct Bistro Channels
               </span>
-              <h3 style={{ fontSize: '1.6rem', fontFamily: "'Playfair Display', serif", color: '#ffffff' }}>
+              <h3 style={{ fontSize: '1.6rem', fontFamily: "'Playfair Display', serif", color: 'var(--text-heading)' }}>
                 Direct Ordering & Call
               </h3>
               <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', fontWeight: 300, lineHeight: '1.6' }}>
@@ -140,7 +140,7 @@ export default function OrderOnline() {
             <div className="detail-teaser-icon">
               <MapPin size={20} />
             </div>
-            <h4 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#ffffff' }}>Fine Dine-In</h4>
+            <h4 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-heading)' }}>Fine Dine-In</h4>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 300, lineHeight: '1.5' }}>
               Experience upscale dining in our cozy, premium Srinagar-inspired bistro environment.
             </p>
@@ -150,7 +150,7 @@ export default function OrderOnline() {
             <div className="detail-teaser-icon">
               <Bike size={20} />
             </div>
-            <h4 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#ffffff' }}>Contactless Takeaway</h4>
+            <h4 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-heading)' }}>Contactless Takeaway</h4>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 300, lineHeight: '1.5' }}>
               Pre-order via WhatsApp and have your fresh meals packaged and ready when you arrive.
             </p>
@@ -160,7 +160,7 @@ export default function OrderOnline() {
             <div className="detail-teaser-icon">
               <ShieldCheck size={20} />
             </div>
-            <h4 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#ffffff' }}>Drive-Through Pickup</h4>
+            <h4 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-heading)' }}>Drive-Through Pickup</h4>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 300, lineHeight: '1.5' }}>
               Call us when you pull up to Gulshanabad Hyderpora, and we will hand over your order to your car.
             </p>
@@ -170,7 +170,7 @@ export default function OrderOnline() {
             <div className="detail-teaser-icon">
               <CalendarDays size={20} />
             </div>
-            <h4 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#ffffff' }}>Table Reservations</h4>
+            <h4 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-heading)' }}>Table Reservations</h4>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 300, lineHeight: '1.5' }}>
               Planning an evening out? Reserve your spot in advance using our simple WhatsApp reservation form.
             </p>

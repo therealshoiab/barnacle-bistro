@@ -70,7 +70,7 @@ ${formData.message ? `• Special Requests: ${formData.message}` : ''}`;
               <div className="contact-info-item">
                 <MapPin size={24} className="contact-info-icon" style={{ color: 'var(--primary-color)' }} />
                 <div>
-                  <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#ffffff' }}>Location</h4>
+                  <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-heading)' }}>Location</h4>
                   <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px', lineHeight: '1.5' }}>
                     {siteConfig.contact.address}
                   </p>
@@ -80,7 +80,7 @@ ${formData.message ? `• Special Requests: ${formData.message}` : ''}`;
               <div className="contact-info-item">
                 <Phone size={24} className="contact-info-icon" style={{ color: 'var(--primary-color)' }} />
                 <div>
-                  <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#ffffff' }}>Call Us</h4>
+                  <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-heading)' }}>Call Us</h4>
                   <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px' }}>
                     <a href={`tel:${siteConfig.contact.phone}`} className="contact-link-hover">
                       {siteConfig.contact.phoneDisplay}
@@ -92,7 +92,7 @@ ${formData.message ? `• Special Requests: ${formData.message}` : ''}`;
               <div className="contact-info-item">
                 <Clock size={24} className="contact-info-icon" style={{ color: 'var(--primary-color)' }} />
                 <div>
-                  <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#ffffff' }}>Hours</h4>
+                  <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-heading)' }}>Hours</h4>
                   <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px' }}>
                     {siteConfig.contact.hours}
                   </p>
@@ -102,7 +102,7 @@ ${formData.message ? `• Special Requests: ${formData.message}` : ''}`;
               <div className="contact-info-item">
                 <Mail size={24} className="contact-info-icon" style={{ color: 'var(--primary-color)' }} />
                 <div>
-                  <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#ffffff' }}>Email</h4>
+                  <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-heading)' }}>Email</h4>
                   <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px' }}>
                     <a href={`mailto:${siteConfig.contact.email}`} className="contact-link-hover">
                       {siteConfig.contact.email}
@@ -166,7 +166,7 @@ ${formData.message ? `• Special Requests: ${formData.message}` : ''}`;
 
           {/* Right: WhatsApp-powered Reservation Form */}
           <div className="glass-panel reservation-form-card">
-            <h3 style={{ fontSize: '1.6rem', fontFamily: "'Playfair Display', serif", color: '#ffffff', marginBottom: '1.5rem' }}>
+            <h3 style={{ fontSize: '1.6rem', fontFamily: "'Playfair Display', serif", color: 'var(--text-heading)', marginBottom: '1.5rem' }}>
               Reserve A Table
             </h3>
             

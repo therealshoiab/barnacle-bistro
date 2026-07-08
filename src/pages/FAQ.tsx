@@ -72,7 +72,7 @@ export default function FAQ() {
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <HelpCircle size={18} style={{ color: isOpen ? 'var(--primary-color)' : 'var(--text-muted)', flexShrink: 0 }} />
-                    <span style={{ color: '#ffffff', fontWeight: 600, fontSize: '1rem' }}>{faq.question}</span>
+                    <span style={{ color: 'var(--text-heading)', fontWeight: 600, fontSize: '1rem' }}>{faq.question}</span>
                   </div>
                   
                   <ChevronDown
@@ -96,7 +96,7 @@ export default function FAQ() {
                     borderTop: isOpen ? '1px solid var(--border-color)' : 'none'
                   }}
                 >
-                  <div style={{ padding: '1.25rem 1.5rem', backgroundColor: 'rgba(0, 0, 0, 0.15)' }}>
+                  <div style={{ padding: '1.25rem 1.5rem', backgroundColor: 'var(--surface-color)' }}>
                     <p style={{ fontSize: '0.9rem', color: 'var(--text-color)', fontWeight: 300, lineHeight: '1.6' }}>
                       {faq.answer}
                     </p>

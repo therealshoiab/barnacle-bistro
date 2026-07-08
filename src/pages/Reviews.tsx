@@ -52,7 +52,7 @@ export default function Reviews() {
               {/* Author — no avatar, just name + date */}
               <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1rem', marginTop: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
-                  <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff', marginBottom: '2px' }}>{review.author}</h4>
+                  <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-heading)', marginBottom: '2px' }}>{review.author}</h4>
                   <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{review.date}</p>
                 </div>
                 {/* Verified badge */}
