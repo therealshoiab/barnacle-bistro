@@ -195,6 +195,8 @@ export default function Menu() {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 1.5rem;
+          /* Every row is locked to the same height — no stretching */
+          grid-auto-rows: 192px;
         }
         .menu-item-card {
           display: flex;
@@ -204,6 +206,8 @@ export default function Menu() {
           border: 1px solid var(--glass-border);
           transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
           border-radius: 16px;
+          /* Hard lock — every card is exactly this tall */
+          height: 192px;
         }
         .menu-item-card:hover {
           transform: translateY(-4px);
@@ -211,9 +215,10 @@ export default function Menu() {
           box-shadow: var(--glass-shadow);
         }
 
-        /* Image */
+        /* Image — fills card height exactly, no min-height that could push things */
         .menu-item-img-wrap {
           width: 38%;
+          height: 100%;
           flex-shrink: 0;
           position: relative;
           overflow: hidden;
@@ -222,8 +227,9 @@ export default function Menu() {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          object-position: center;
           transition: transform 0.5s ease;
-          min-height: 160px;
+          display: block;
         }
         .menu-item-card:hover .menu-item-img {
           transform: scale(1.07);
@@ -279,6 +285,11 @@ export default function Menu() {
           font-weight: 300;
           flex: 1;
           margin: 0;
+          /* Clamp to 2 lines — prevents long descriptions from making cards taller */
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
         .menu-item-footer {
           display: flex;
@@ -315,11 +326,21 @@ export default function Menu() {
         .badge-popular { color: var(--primary-color); background: var(--accent-glow); }
 
         @media (max-width: 900px) {
-          .menu-items-grid { grid-template-columns: 1fr; }
+          .menu-items-grid {
+            grid-template-columns: 1fr;
+            grid-auto-rows: 180px;
+          }
+          .menu-item-card { height: 180px; }
         }
         @media (max-width: 580px) {
-          .menu-item-img-wrap { width: 42%; }
-          .menu-item-content { padding: 1rem; }
+          .menu-items-grid {
+            grid-template-columns: 1fr;
+            grid-auto-rows: 160px;
+          }
+          .menu-item-card { height: 160px; }
+          .menu-item-img-wrap { width: 40%; }
+          .menu-item-content { padding: 0.85rem; }
+          .menu-item-name { font-size: 0.88rem; }
         }
       `}</style>
     </section>
