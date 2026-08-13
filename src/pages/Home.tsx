@@ -81,15 +81,16 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 fontWeight: 800,
                 fontFamily: "'Playfair Display', serif",
                 color: 'var(--text-heading)',
-                letterSpacing: '-0.5px'
+                letterSpacing: '0px',
+                wordSpacing: '0.08em'
               }}
             >
-              <span className="hero-title-word">Where </span>
-              <span className="hero-title-word" style={{ color: 'var(--primary-color)' }}>Culinary </span>
-              <span className="hero-title-word" style={{ color: 'var(--primary-color)' }}>Art </span>
-              <span className="hero-title-word">Meets </span>
+              <span className="hero-title-word">Where&nbsp;</span>
+              <span className="hero-title-word" style={{ color: 'var(--primary-color)' }}>Culinary&nbsp;</span>
+              <span className="hero-title-word" style={{ color: 'var(--primary-color)' }}>Art&nbsp;</span>
+              <span className="hero-title-word">Meets&nbsp;</span>
               <br className="desktop-only-br" />
-              <span className="hero-title-word">Premium </span>
+              <span className="hero-title-word">Premium&nbsp;</span>
               <span className="hero-title-word" style={{ color: 'var(--primary-color)' }}>Vibes.</span>
             </h1>
 
@@ -210,6 +211,11 @@ export default function Home({ setCurrentPage }: HomeProps) {
           gap: 1rem;
           text-align: left;
         }
+        /* --- Initial hidden states so GSAP animates IN cleanly (no flash) --- */
+        .hero-subtitle {
+          opacity: 0;
+          transform: translateY(15px);
+        }
         .hero-tagline {
           font-family: 'Outfit', sans-serif;
           font-size: 0.85rem;
@@ -222,14 +228,23 @@ export default function Home({ setCurrentPage }: HomeProps) {
           border-radius: 30px;
           width: fit-content;
           background-color: var(--accent-glow);
+          /* Start invisible — GSAP will fade in */
+          opacity: 0;
+          transform: translateY(20px);
         }
         .hero-title-word {
           display: inline-block;
+          /* Start invisible — GSAP will fade in */
+          opacity: 0;
+          transform: translateY(30px);
         }
         .hero-btn-container {
           display: flex;
           gap: 1rem;
           margin-top: 1.25rem;
+          /* Start invisible — GSAP will fade in */
+          opacity: 0;
+          transform: scale(0.95);
         }
         .hero-badges-row {
           display: flex;
@@ -242,6 +257,9 @@ export default function Home({ setCurrentPage }: HomeProps) {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
+          /* Start invisible — GSAP will fade in */
+          opacity: 0;
+          transform: translateY(15px);
         }
         .badge-stat {
           font-size: clamp(1.2rem, 3.5vw, 1.6rem);
