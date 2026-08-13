@@ -114,21 +114,21 @@ export default function SplineSceneWrapper({
         border: '1.5px solid rgba(212,175,55,0.3)'
       }}
     >
-      {/* Background image — clearly visible */}
+      {/* Background image — bright and vivid */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        backgroundImage: `url(https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&q=90&w=1200)`,
+        backgroundImage: `url(https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=95&w=1200)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         zIndex: 0
       }} />
 
-      {/* Subtle gradient overlay — dark only at bottom so image stays visible */}
+      {/* Very light overlay — just enough to make text readable, image stays bright */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: 'linear-gradient(160deg, rgba(5,5,8,0.25) 0%, rgba(5,5,8,0.55) 60%, rgba(5,5,8,0.82) 100%)',
+        background: 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.38) 70%, rgba(0,0,0,0.55) 100%)',
         zIndex: 1
       }} />
 
