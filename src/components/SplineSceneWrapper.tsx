@@ -118,9 +118,9 @@ export default function SplineSceneWrapper({
       <div style={{
         position: 'absolute',
         inset: 0,
-        backgroundImage: `url(/hero-interior.jpg)`,
+        backgroundImage: `url(https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&q=90&w=1200)`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center top',
+        backgroundPosition: 'center',
         zIndex: 0
       }} />
 
