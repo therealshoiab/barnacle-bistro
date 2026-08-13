@@ -94,7 +94,7 @@ export const siteConfig = {
   // Interactive 3D Scene
   spline: {
     sceneUrl: 'https://prod.spline.design/6Wq1Q7YEBSpZqZhu/scene.splinecode', // A premium dark/minimalist interactive 3D model
-    fallbackImage: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1920', // Premium restaurant interior background fallback
+    fallbackImage: '/hero-interior.jpg',
   },
 
   // Signature Dishes

@@ -111,21 +111,72 @@ export default function SplineSceneWrapper({
         alignItems: 'center', 
         justifyContent: 'center',
         textAlign: 'center',
-        backgroundImage: `linear-gradient(rgba(10, 11, 13, 0.6), rgba(10, 11, 13, 0.85)), url(${siteConfig.spline.fallbackImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        border: '1.5px solid var(--border-color)'
+        border: '1.5px solid rgba(212,175,55,0.3)'
       }}
     >
-      {/* Text overlay content */}
-      <div style={{ position: 'relative', zIndex: 2, padding: '2rem', color: '#ffffff' }}>
-        <span style={{ fontSize: '3rem', display: 'block', marginBottom: '1rem' }}>☕</span>
-        <h3 style={{ fontSize: '1.6rem', fontWeight: 700, color: '#ffffff', fontFamily: "'Playfair Display', serif", textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>
+      {/* Background image — clearly visible */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        backgroundImage: `url(/hero-interior.jpg)`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center top',
+        zIndex: 0
+      }} />
+
+      {/* Subtle gradient overlay — dark only at bottom so image stays visible */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: 'linear-gradient(160deg, rgba(5,5,8,0.25) 0%, rgba(5,5,8,0.55) 60%, rgba(5,5,8,0.82) 100%)',
+        zIndex: 1
+      }} />
+
+      {/* Text content — on top of overlay */}
+      <div style={{ position: 'relative', zIndex: 2, padding: '2rem' }}>
+        {/* Gold accent line */}
+        <div style={{
+          width: '48px',
+          height: '2px',
+          background: 'linear-gradient(90deg, transparent, #d4af37, transparent)',
+          margin: '0 auto 1rem auto',
+          borderRadius: '2px'
+        }} />
+
+        <h3 style={{
+          fontSize: '1.65rem',
+          fontWeight: 700,
+          color: '#ffffff',
+          fontFamily: "'Playfair Display', serif",
+          textShadow: '0 2px 16px rgba(0,0,0,0.9), 0 1px 4px rgba(0,0,0,0.8)',
+          lineHeight: 1.25,
+          marginBottom: '0.65rem',
+          letterSpacing: '0.3px'
+        }}>
           Welcome to Barnacle Bistro
         </h3>
-        <p style={{ fontSize: '0.95rem', color: 'rgba(255, 255, 255, 0.95)', marginTop: '0.5rem', fontFamily: "'Outfit', sans-serif", textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
-          Experience the upscale dining & premium continental grills of Srinagar's finest bistro.
+
+        <p style={{
+          fontSize: '0.88rem',
+          color: 'rgba(255,255,255,0.92)',
+          fontFamily: "'Outfit', sans-serif",
+          textShadow: '0 1px 8px rgba(0,0,0,0.9)',
+          lineHeight: 1.55,
+          maxWidth: '280px',
+          margin: '0 auto 1.25rem auto'
+        }}>
+          Experience the upscale dining &amp; premium continental grills of Srinagar's finest bistro.
         </p>
+
+        {/* Gold divider */}
+        <div style={{
+          width: '36px',
+          height: '1.5px',
+          background: '#d4af37',
+          margin: '0 auto',
+          borderRadius: '2px',
+          opacity: 0.7
+        }} />
       </div>
     </div>
   );
