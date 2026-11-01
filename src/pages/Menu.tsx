@@ -1,18 +1,22 @@
 import { useState, useEffect, useRef } from 'react';
 import { siteConfig } from '../data/siteConfig';
-import { Flame, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Flame, Star, ChevronLeft, ChevronRight, Search, Sparkles } from 'lucide-react';
 
 const PLACEHOLDER_IMG = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=400';
 
 export default function Menu() {
-  const [activeCategory, setActiveCategory] = useState(siteConfig.menu[0]?.id || 'starters');
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
   const tabsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, []);
 
-  const activeCategoryData = siteConfig.menu.find(c => c.id === activeCategory);
+  // Compute all items with their category title
+  const allItems = siteConfig.menu.flatMap(c => 
+    c.items.map(item => ({ ...item, categoryTitle: c.title }))
+  );
 
   const scrollTabs = (dir: 'left' | 'right') => {
     if (tabsRef.current) {
@@ -20,50 +24,113 @@ export default function Menu() {
     }
   };
 
+  // Filter items based on activeCategory and searchQuery
+  const filteredItems = (activeCategory === 'all' 
+    ? allItems 
+    : (siteConfig.menu.find(c => c.id === activeCategory)?.items.map(item => ({
+        ...item,
+        categoryTitle: siteConfig.menu.find(c => c.id === activeCategory)?.title || ''
+      })) || [])
+  ).filter(item => {
+    if (!searchQuery.trim()) return true;
+    const query = searchQuery.toLowerCase();
+    return item.name.toLowerCase().includes(query) || 
+           item.description.toLowerCase().includes(query) ||
+           item.categoryTitle.toLowerCase().includes(query);
+  });
+
   return (
     <section style={{ padding: '8rem 2rem 6rem 2rem', backgroundColor: 'var(--bg-color)', minHeight: '90vh' }}>
       <div className="container">
 
         {/* Header */}
-        <div className="section-header" style={{ textAlign: 'center', marginBottom: '4rem' }}>
+        <div className="section-header" style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <span className="section-title-sub">Gourmet Selection</span>
-          <h2 style={{ fontSize: '2.5rem', fontFamily: "'Playfair Display', serif", marginBottom: '1rem' }}>
-            Our Menu
+          <h2 style={{ fontSize: 'clamp(2.2rem, 4vw, 3rem)', fontFamily: "'Playfair Display', serif", marginBottom: '1rem', color: 'var(--text-heading)' }}>
+            Our Menu ({allItems.length} Dishes)
           </h2>
-          <p style={{ color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto' }}>
-            Explore our curated culinary collection — authentic Wazwan delicacies, crispy momos, hearty mains, and fresh local brews.
+          <p style={{ color: 'var(--text-muted)', maxWidth: '640px', margin: '0 auto', fontSize: '1.05rem', lineHeight: '1.7' }}>
+            Explore our extensive culinary collection — authentic Wazwan delicacies, crunchy momos, continental sizzlers, fragrant biryanis, and artisan coolers.
           </p>
+        </div>
+
+        {/* Search Bar */}
+        <div style={{ maxWidth: '520px', margin: '0 auto 2.5rem auto', position: 'relative' }}>
+          <Search size={18} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--primary-color)' }} />
+          <input
+            type="text"
+            placeholder="Search our 50+ dishes (e.g. momos, sizzler, rista, biryani)..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{
+              width: '100%',
+              padding: '0.85rem 1.25rem 0.85rem 3rem',
+              borderRadius: '30px',
+              border: '1px solid var(--border-color)',
+              background: 'var(--surface-color)',
+              color: 'var(--text-color)',
+              fontSize: '0.92rem',
+              fontFamily: "'Outfit', sans-serif",
+              outline: 'none',
+              boxSizing: 'border-box',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+            }}
+          />
         </div>
 
         {/* Horizontal Scroll Category Tabs */}
         <div style={{ position: 'relative', marginBottom: '3rem' }}>
           {/* Left Arrow */}
-          <button onClick={() => scrollTabs('left')} className="tab-arrow tab-arrow-left">
+          <button onClick={() => scrollTabs('left')} className="tab-arrow tab-arrow-left" aria-label="Scroll left">
             <ChevronLeft size={18} />
           </button>
 
           {/* Scrollable Pills */}
           <div ref={tabsRef} className="category-tabs-scroll">
+            {/* "All Items" tab */}
+            <button
+              onClick={() => setActiveCategory('all')}
+              className={`category-pill ${activeCategory === 'all' ? 'category-pill-active' : ''}`}
+            >
+              All Items ({allItems.length})
+            </button>
+
+            {/* Individual categories */}
             {siteConfig.menu.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
                 className={`category-pill ${activeCategory === category.id ? 'category-pill-active' : ''}`}
               >
-                {category.title}
+                {category.title} ({category.items.length})
               </button>
             ))}
           </div>
 
           {/* Right Arrow */}
-          <button onClick={() => scrollTabs('right')} className="tab-arrow tab-arrow-right">
+          <button onClick={() => scrollTabs('right')} className="tab-arrow tab-arrow-right" aria-label="Scroll right">
             <ChevronRight size={18} />
           </button>
         </div>
 
+        {/* Showing Items Counter */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', padding: '0 0.5rem' }}>
+          <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+            Showing <strong style={{ color: 'var(--primary-color)' }}>{filteredItems.length}</strong> items {activeCategory !== 'all' && `in ${siteConfig.menu.find(c => c.id === activeCategory)?.title}`}
+          </p>
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              style={{ background: 'transparent', border: 'none', color: 'var(--primary-color)', fontSize: '0.82rem', cursor: 'pointer', fontWeight: 600 }}
+            >
+              Clear Search
+            </button>
+          )}
+        </div>
+
         {/* Menu Items Grid — Card with image left, content right */}
         <div className="menu-items-grid">
-          {activeCategoryData?.items.map((item) => (
+          {filteredItems.map((item) => (
             <div key={item.id} className="menu-item-card glass-panel">
 
               {/* Food Image */}
@@ -103,6 +170,11 @@ export default function Menu() {
                       <Star size={10} fill="currentColor" /> Popular
                     </span>
                   )}
+                  {item.categoryTitle && activeCategory === 'all' && (
+                    <span style={{ fontSize: '10px', color: 'var(--text-muted)', background: 'var(--accent-glow)', padding: '2px 8px', borderRadius: '10px', border: '1px solid var(--border-color)' }}>
+                      {item.categoryTitle}
+                    </span>
+                  )}
                 </div>
 
                 {/* Description */}
@@ -119,8 +191,17 @@ export default function Menu() {
           ))}
         </div>
 
-        <div style={{ textAlign: 'center', marginTop: '3rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-          * Prices are exclusive of local taxes.
+        {filteredItems.length === 0 && (
+          <div style={{ textAlign: 'center', padding: '4rem 1rem' }}>
+            <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>No dishes found matching "{searchQuery}".</p>
+            <button onClick={() => setSearchQuery('')} className="btn btn-primary" style={{ marginTop: '1rem', padding: '0.6rem 1.5rem', fontSize: '0.85rem' }}>
+              View All Dishes
+            </button>
+          </div>
+        )}
+
+        <div style={{ textAlign: 'center', marginTop: '3.5rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+          * All dishes are prepared 100% Halal using fresh ingredients. Prices are exclusive of local taxes.
         </div>
       </div>
 

@@ -3,7 +3,8 @@ import HeroSlideshow from '../components/HeroSlideshow';
 import { siteConfig } from '../data/siteConfig';
 import { 
   Star, Quote, ChevronDown, HelpCircle, Flame, 
-  ShieldCheck, Heart, ArrowRight, Utensils, CheckCircle2 
+  ShieldCheck, Heart, ArrowRight, Utensils, CheckCircle2,
+  PenLine, Send, X, ExternalLink
 } from 'lucide-react';
 
 interface HomeProps {
@@ -13,6 +14,23 @@ interface HomeProps {
 export default function Home({ setCurrentPage }: HomeProps) {
   const [activeFaq, setActiveFaq] = useState<string | null>(siteConfig.faqs[0]?.id || null);
   const [visibleReviews, setVisibleReviews] = useState(8);
+
+  // Leave a review state
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [newReviewAuthor, setNewReviewAuthor] = useState('');
+  const [newReviewText, setNewReviewText] = useState('');
+  const [newReviewRating, setNewReviewRating] = useState(5);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [reviewSubmitted, setReviewSubmitted] = useState(false);
+  const [userSubmittedReviews, setUserSubmittedReviews] = useState<Array<{
+    id: string;
+    author: string;
+    rating: number;
+    text: string;
+    date: string;
+  }>>([]);
+
+  const googleMapsReviewUrl = "https://www.google.com/maps/place/Barnacle+Bistro/@34.0460824,74.779523,17z";
 
   // Check if hash has a section target to scroll to (e.g., #about, #faq, #reviews)
   useEffect(() => {
@@ -45,6 +63,27 @@ export default function Home({ setCurrentPage }: HomeProps) {
   const loadMoreReviews = () => {
     setVisibleReviews((prev) => Math.min(prev + 12, siteConfig.reviews.length));
   };
+
+  const handleReviewSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newReviewAuthor.trim() || !newReviewText.trim()) return;
+
+    const created = {
+      id: `user-rev-${Date.now()}`,
+      author: newReviewAuthor.trim(),
+      rating: newReviewRating,
+      text: newReviewText.trim(),
+      date: 'Just now'
+    };
+
+    setUserSubmittedReviews((prev) => [created, ...prev]);
+    setReviewSubmitted(true);
+    setNewReviewAuthor('');
+    setNewReviewText('');
+    setNewReviewRating(5);
+  };
+
+  const allReviews = [...userSubmittedReviews, ...siteConfig.reviews];
 
   return (
     <div style={{ position: 'relative', overflowX: 'hidden' }}>
@@ -348,8 +387,8 @@ export default function Home({ setCurrentPage }: HomeProps) {
           <div 
             className="glass-panel" 
             style={{ 
-              maxWidth: '750px', 
-              margin: '0 auto 3rem auto', 
+              maxWidth: '850px', 
+              margin: '0 auto 2.5rem auto', 
               padding: '1.5rem 2rem', 
               display: 'flex', 
               alignItems: 'center', 
@@ -384,11 +423,245 @@ export default function Home({ setCurrentPage }: HomeProps) {
               <span style={{ fontSize: '1.8rem', fontWeight: 700, color: '#24963f' }}>98%</span>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Recommendation Rate</p>
             </div>
+
+            <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--border-color)' }} className="desktop-only-divider" />
+
+            {/* Leave a Review Button */}
+            <div style={{ textAlign: 'center' }}>
+              <button
+                onClick={() => {
+                  setShowReviewForm(!showReviewForm);
+                  setReviewSubmitted(false);
+                }}
+                className="btn btn-primary"
+                style={{
+                  padding: '0.75rem 1.4rem',
+                  fontSize: '0.88rem',
+                  fontWeight: 700,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  borderRadius: '24px',
+                  boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)'
+                }}
+              >
+                <PenLine size={16} />
+                <span>{showReviewForm ? 'Close Form' : 'Leave a Review'}</span>
+              </button>
+            </div>
           </div>
+
+          {/* Interactive "Leave a Review" Form Container */}
+          {showReviewForm && (
+            <div 
+              className="glass-panel" 
+              style={{ 
+                maxWidth: '750px', 
+                margin: '0 auto 3rem auto', 
+                padding: '2.25rem', 
+                borderRadius: '24px',
+                border: '1.5px solid var(--primary-color)',
+                backgroundColor: 'var(--surface-color)',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.25)'
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+                <div>
+                  <span className="section-title-sub">Your Feedback Matters</span>
+                  <h3 style={{ fontSize: '1.6rem', fontFamily: "'Playfair Display', serif", color: 'var(--text-heading)' }}>
+                    Share Your Barnacle Bistro Experience
+                  </h3>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
+                    Rate your visit, tell us about your favorite dishes, or post directly to our Google listing.
+                  </p>
+                </div>
+                <button 
+                  onClick={() => setShowReviewForm(false)}
+                  style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '0.25rem' }}
+                  title="Close"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {reviewSubmitted ? (
+                <div style={{ padding: '2rem', textAlign: 'center', background: 'rgba(36, 150, 63, 0.12)', borderRadius: '16px', border: '1px solid rgba(36, 150, 63, 0.3)' }}>
+                  <CheckCircle2 size={40} style={{ color: '#24963f', margin: '0 auto 0.75rem auto' }} />
+                  <h4 style={{ fontSize: '1.25rem', color: 'var(--text-heading)', fontWeight: 700 }}>
+                    Thank you for your review!
+                  </h4>
+                  <p style={{ color: 'var(--text-color)', fontSize: '0.9rem', marginTop: '0.5rem', lineHeight: '1.6' }}>
+                    Your feedback has been added to our guest stories. We look forward to welcoming you back to Hyderpora!
+                  </p>
+                  <div style={{ marginTop: '1.25rem', display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                    <a
+                      href={googleMapsReviewUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn"
+                      style={{
+                        background: '#24963f',
+                        color: '#fff',
+                        fontSize: '0.85rem',
+                        fontWeight: 700,
+                        padding: '0.65rem 1.25rem',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.4rem'
+                      }}
+                    >
+                      <span>Also Post to Google Reviews</span>
+                      <ExternalLink size={14} />
+                    </a>
+                    <button
+                      onClick={() => setShowReviewForm(false)}
+                      className="btn btn-secondary"
+                      style={{ fontSize: '0.85rem', padding: '0.65rem 1.25rem' }}
+                    >
+                      Done
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <form onSubmit={handleReviewSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                  
+                  {/* Rating Stars Selection */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-heading)', marginBottom: '0.5rem' }}>
+                      Your Rating *
+                    </label>
+                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                      {[1, 2, 3, 4, 5].map((starVal) => {
+                        const isFilled = (hoverRating || newReviewRating) >= starVal;
+                        return (
+                          <button
+                            type="button"
+                            key={starVal}
+                            onClick={() => setNewReviewRating(starVal)}
+                            onMouseEnter={() => setHoverRating(starVal)}
+                            onMouseLeave={() => setHoverRating(0)}
+                            style={{
+                              background: 'transparent',
+                              border: 'none',
+                              cursor: 'pointer',
+                              padding: '2px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              transition: 'transform 0.15s'
+                            }}
+                          >
+                            <Star
+                              size={26}
+                              fill={isFilled ? '#24963f' : 'none'}
+                              style={{ color: isFilled ? '#24963f' : 'var(--text-muted)' }}
+                            />
+                          </button>
+                        );
+                      })}
+                      <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#24963f', marginLeft: '0.5rem' }}>
+                        {newReviewRating} / 5 Stars
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Name Input */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-heading)', marginBottom: '0.4rem' }}>
+                      Your Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Mudasir Wani, Dr. Ayesha, etc."
+                      value={newReviewAuthor}
+                      onChange={(e) => setNewReviewAuthor(e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '0.85rem 1rem',
+                        background: 'var(--bg-color)',
+                        border: '1px solid var(--border-color)',
+                        borderRadius: '12px',
+                        color: 'var(--text-color)',
+                        fontFamily: "'Outfit', sans-serif",
+                        fontSize: '0.92rem',
+                        outline: 'none',
+                        boxSizing: 'border-box'
+                      }}
+                    />
+                  </div>
+
+                  {/* Review Message */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-heading)', marginBottom: '0.4rem' }}>
+                      Review & Dining Details *
+                    </label>
+                    <textarea
+                      required
+                      rows={3}
+                      placeholder="Tell us what you loved about our food (e.g. Sizzlers, Wazwan, Momos), service, or ambience..."
+                      value={newReviewText}
+                      onChange={(e) => setNewReviewText(e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '0.85rem 1rem',
+                        background: 'var(--bg-color)',
+                        border: '1px solid var(--border-color)',
+                        borderRadius: '12px',
+                        color: 'var(--text-color)',
+                        fontFamily: "'Outfit', sans-serif",
+                        fontSize: '0.92rem',
+                        outline: 'none',
+                        resize: 'vertical',
+                        boxSizing: 'border-box'
+                      }}
+                    />
+                  </div>
+
+                  {/* Form Submission Buttons */}
+                  <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center', marginTop: '0.5rem' }}>
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      style={{
+                        padding: '0.85rem 1.8rem',
+                        fontSize: '0.92rem',
+                        fontWeight: 700,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.5rem'
+                      }}
+                    >
+                      <Send size={15} />
+                      <span>Submit Review</span>
+                    </button>
+
+                    <a
+                      href={googleMapsReviewUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-secondary"
+                      style={{
+                        padding: '0.85rem 1.4rem',
+                        fontSize: '0.92rem',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.4rem'
+                      }}
+                    >
+                      <span>Rate on Google Maps</span>
+                      <ExternalLink size={14} />
+                    </a>
+                  </div>
+
+                </form>
+              )}
+            </div>
+          )}
 
           {/* Reviews Grid (Green Stars, No Profile Avatars) */}
           <div className="reviews-grid">
-            {siteConfig.reviews.slice(0, visibleReviews).map((review) => (
+            {allReviews.slice(0, visibleReviews).map((review) => (
               <div key={review.id} className="review-card glass-panel">
                 <div style={{ position: 'absolute', top: '1rem', right: '1.5rem', color: 'var(--primary-color)', opacity: 0.08, pointerEvents: 'none' }}>
                   <Quote size={64} fill="currentColor" />
