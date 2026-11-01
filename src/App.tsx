@@ -8,14 +8,10 @@ import LoadingScreen from './components/LoadingScreen';
 
 // Pages
 import Home from './pages/Home';
-import About from './pages/About';
 import Menu from './pages/Menu';
 import Signatures from './pages/Signatures';
 import Gallery from './pages/Gallery';
-import Reviews from './pages/Reviews';
-import OrderOnline from './pages/OrderOnline';
-import Contact from './pages/Contact';
-import FAQ from './pages/FAQ';
+import OrderContact from './pages/OrderContact';
 import Legal from './pages/Legal';
 import NotFound from './pages/NotFound';
 
@@ -31,10 +27,13 @@ export default function App() {
   useEffect(() => {
     const parseHash = () => {
       const hash = window.location.hash || '#/home';
-      const path = hash.replace(/^#\//, '');
+      // Extract main path e.g. "home", "menu", "order"
+      const pathWithSub = hash.replace(/^#\/?/, '');
+      const path = pathWithSub.split('#')[0] || 'home';
+      
       const validPages = [
         'home', 'about', 'menu', 'signatures', 'gallery', 
-        'reviews', 'order', 'contact', 'faq', 'privacy', 'terms'
+        'reviews', 'order', 'contact', 'faq', 'privacy', 'terms', 'order-contact'
       ];
       if (validPages.includes(path)) {
         setCurrentPage(path);
@@ -85,23 +84,20 @@ export default function App() {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <Home setCurrentPage={setCurrentPage} />;
       case 'about':
-        return <About />;
+      case 'reviews':
+      case 'faq':
+        return <Home setCurrentPage={setCurrentPage} />;
       case 'menu':
         return <Menu />;
       case 'signatures':
         return <Signatures />;
       case 'gallery':
         return <Gallery />;
-      case 'reviews':
-        return <Reviews />;
       case 'order':
-        return <OrderOnline />;
       case 'contact':
-        return <Contact />;
-      case 'faq':
-        return <FAQ />;
+      case 'order-contact':
+        return <OrderContact />;
       case 'privacy':
       case 'terms':
         return <Legal />;

@@ -1,42 +1,34 @@
-import React, { useEffect } from 'react';
-import gsap from 'gsap';
-import SplineSceneWrapper from '../components/SplineSceneWrapper';
-import ThreeCanvas from '../components/ThreeCanvas';
+import React, { useState, useEffect } from 'react';
+import HeroSlideshow from '../components/HeroSlideshow';
 import { siteConfig } from '../data/siteConfig';
+import { 
+  Star, Quote, ChevronDown, HelpCircle, Flame, 
+  ShieldCheck, Heart, ArrowRight, Utensils, CheckCircle2 
+} from 'lucide-react';
 
 interface HomeProps {
   setCurrentPage: (page: string) => void;
 }
 
 export default function Home({ setCurrentPage }: HomeProps) {
+  const [activeFaq, setActiveFaq] = useState<string | null>(siteConfig.faqs[0]?.id || null);
+
+  // Check if hash has a section target to scroll to (e.g., #about, #reviews, #faq)
   useEffect(() => {
-    // Staggered entry animation for hero contents
-    const tl = gsap.timeline();
-    
-    tl.fromTo('.hero-tagline', 
-      { opacity: 0, y: 20 }, 
-      { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0.4 }
-    )
-    .fromTo('.hero-title-word', 
-      { opacity: 0, y: 30 }, 
-      { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power4.out' }, 
-      '-=0.4'
-    )
-    .fromTo('.hero-subtitle', 
-      { opacity: 0, y: 15 }, 
-      { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 
-      '-=0.4'
-    )
-    .fromTo('.hero-btn-container', 
-      { opacity: 0, scale: 0.95 }, 
-      { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.5)' }, 
-      '-=0.3'
-    )
-    .fromTo('.hero-badge-container', 
-      { opacity: 0, y: 15 }, 
-      { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out' }, 
-      '-=0.3'
-    );
+    const handleScrollTarget = () => {
+      const hash = window.location.hash;
+      if (hash.includes('about')) {
+        document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+      } else if (hash.includes('reviews')) {
+        document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' });
+      } else if (hash.includes('faq')) {
+        document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+
+    // Small delay to ensure DOM is painted
+    const timer = setTimeout(handleScrollTarget, 100);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleCTA = (page: string) => {
@@ -45,118 +37,27 @@ export default function Home({ setCurrentPage }: HomeProps) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const toggleFaq = (id: string) => {
+    setActiveFaq((prev) => (prev === id ? null : id));
+  };
+
   return (
-    <div style={{ position: 'relative', overflow: 'hidden' }}>
+    <div style={{ position: 'relative', overflowX: 'hidden' }}>
       
-      {/* Three.js Particle Background Layer */}
-      <ThreeCanvas />
+      {/* 1. HERO SLIDESHOW (10 Themed Images + Centered Data + No Glowing Dots) */}
+      <HeroSlideshow onNavigate={handleCTA} />
 
-      {/* 1. HERO SECTION */}
-      <section 
-        className="hero-section"
-        style={{
-          position: 'relative',
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '7rem 2rem 4rem 2rem',
-          boxSizing: 'border-box',
-          backgroundColor: 'transparent',
-          zIndex: 1
-        }}
-      >
-        <div className="container hero-grid">
-          
-          {/* Hero Left Content */}
-          <div className="hero-left-content">
-            <div className="hero-tagline">
-              Srinagar's Premium Bistro
-            </div>
-            
-            <h1 
-              style={{
-                fontSize: 'clamp(2.4rem, 4.5vw, 4rem)',
-                lineHeight: '1.15',
-                fontWeight: 800,
-                fontFamily: "'Playfair Display', serif",
-                color: 'var(--text-heading)',
-                letterSpacing: '0px',
-                wordSpacing: '0.08em'
-              }}
-            >
-              <span className="hero-title-word">Where&nbsp;</span>
-              <span className="hero-title-word" style={{ color: 'var(--primary-color)' }}>Culinary&nbsp;</span>
-              <span className="hero-title-word" style={{ color: 'var(--primary-color)' }}>Art&nbsp;</span>
-              <span className="hero-title-word">Meets&nbsp;</span>
-              <br className="desktop-only-br" />
-              <span className="hero-title-word">Premium&nbsp;</span>
-              <span className="hero-title-word" style={{ color: 'var(--primary-color)' }}>Vibes.</span>
-            </h1>
-
-            <p 
-              className="hero-subtitle"
-              style={{
-                fontFamily: "'Outfit', sans-serif",
-                fontSize: '1.05rem',
-                color: 'var(--text-muted)',
-                maxWidth: '520px',
-                lineHeight: '1.65',
-                marginTop: '1rem'
-              }}
-            >
-              Barnacle Bistro — Srinagar's high-end dining sanctuary in Hyderpora, serving exceptional continental grills, signature momos, mocktails, and unforgettable family dining moments.
-            </p>
-
-            <div className="hero-btn-container">
-              <button 
-                onClick={() => handleCTA('menu')} 
-                className="btn btn-primary"
-              >
-                View Menu
-              </button>
-              <button 
-                onClick={() => handleCTA('order')} 
-                className="btn btn-secondary"
-              >
-                Order Online
-              </button>
-            </div>
-
-            {/* Badges Row */}
-            <div className="hero-badges-row">
-              <div className="hero-badge-container">
-                <span className="badge-stat">4.5 ★</span>
-                <span className="badge-label">Zomato Rating</span>
-              </div>
-              <div className="hero-badge-container">
-                <span className="badge-stat">500+</span>
-                <span className="badge-label">Happy Patrons</span>
-              </div>
-              <div className="hero-badge-container">
-                <span className="badge-stat">11 AM - 11 PM</span>
-                <span className="badge-label">Hours of Service</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Hero Right Media - Spline Canvas */}
-          <div className="hero-right-media">
-            <SplineSceneWrapper scene={siteConfig.spline.sceneUrl} />
-          </div>
-        </div>
-      </section>
-
-      {/* 2. CORE TEASER / INTRODUCTION SECTION */}
-      <section style={{ padding: '7rem 0', backgroundColor: 'var(--bg-color)', position: 'relative', zIndex: 1 }}>
+      {/* 2. CORE FEATURES & HIGHLIGHTS STRIP */}
+      <section style={{ padding: '5rem 2rem 4rem 2rem', backgroundColor: 'var(--bg-color)', position: 'relative', zIndex: 1 }}>
         <div className="container" style={{ textAlign: 'center' }}>
           
-          <div style={{ maxWidth: '800px', margin: '0 auto', marginBottom: '4.5rem' }}>
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', fontFamily: "'Playfair Display', serif" }}>
-              Traditional Hospitality Meets Modern Culinary Art
+          <div style={{ maxWidth: '800px', margin: '0 auto', marginBottom: '3.5rem' }}>
+            <span className="section-title-sub">The Barnacle Standard</span>
+            <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', marginBottom: '1rem', fontFamily: "'Playfair Display', serif" }}>
+              Traditional Kashmiri Soul Meets Modern Bistro Art
             </h2>
-            <p style={{ color: 'var(--text-muted)', fontSize: '1rem', lineHeight: '1.8' }}>
-              Located in Hyderpora near Bypass, Srinagar, we blend culinary excellence with a high-end, premium cafe environment. Each recipe is crafted by professional chefs using local ingredients, premium imports, and slow-roasting techniques.
+            <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', lineHeight: '1.8' }}>
+              Located in Gulshanabad, Hyderpora near Srinagar Bypass, we blend authentic wazwan traditions with high-end continental sizzlers, momos, and warm ambient spaces.
             </p>
           </div>
 
@@ -164,186 +65,552 @@ export default function Home({ setCurrentPage }: HomeProps) {
             {/* Card 1 */}
             <div className="glass-panel teaser-card">
               <div className="teaser-icon-wrapper">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><path d="M16.2 7.8l-2 2a3 3 0 0 0-4.2 4.2l-2 2"></path></svg>
+                <Flame size={24} style={{ color: 'var(--primary-color)' }} />
               </div>
-              <h3 style={{ fontSize: '1.25rem', fontFamily: "'Playfair Display', serif" }}>Signature Grills</h3>
-              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', textAlign: 'center' }}>
-                Expert mutton seekh grills, slow-cooked kanti skewers, and tender grilled chicken seasoned with custom spice rubs.
+              <h3 style={{ fontSize: '1.25rem', fontFamily: "'Playfair Display', serif", color: 'var(--text-heading)' }}>
+                Continental Grills & Sizzlers
+              </h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', textAlign: 'center', lineHeight: '1.6' }}>
+                Expert chicken steaks, lamb skewers, and piping-hot cast iron sizzlers with herb-infused butter.
               </p>
             </div>
             
             {/* Card 2 */}
             <div className="glass-panel teaser-card">
               <div className="teaser-icon-wrapper">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <Utensils size={24} style={{ color: 'var(--primary-color)' }} />
               </div>
-              <h3 style={{ fontSize: '1.25rem', fontFamily: "'Playfair Display', serif" }}>Legendary Momos</h3>
-              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', textAlign: 'center' }}>
-                Srinagar's favorite chicken malai momos, steamed cheese variations, and crispy fried momos served with hot chili dips.
+              <h3 style={{ fontSize: '1.25rem', fontFamily: "'Playfair Display', serif", color: 'var(--text-heading)' }}>
+                Artisan Momos & Dumplings
+              </h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', textAlign: 'center', lineHeight: '1.6' }}>
+                Srinagar’s favorite crispy kurkure momos, tandoori malai momos, and steamed delicacies with fiery dips.
               </p>
             </div>
 
             {/* Card 3 */}
             <div className="glass-panel teaser-card">
               <div className="teaser-icon-wrapper">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <ShieldCheck size={24} style={{ color: 'var(--primary-color)' }} />
               </div>
-              <h3 style={{ fontSize: '1.25rem', fontFamily: "'Playfair Display', serif" }}>Premium Dining</h3>
-              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', textAlign: 'center' }}>
-                A highly aesthetic, frosted glass-themed sanctuary designed for cozy dates, family dinners, and peaceful discussions.
+              <h3 style={{ fontSize: '1.25rem', fontFamily: "'Playfair Display', serif", color: 'var(--text-heading)' }}>
+                100% Halal & Fresh Valley Sourced
+              </h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', textAlign: 'center', lineHeight: '1.6' }}>
+                Strict adherence to 100% Halal preparations with fresh meats, vegetables, and genuine saffron from Pampore.
+              </p>
+            </div>
+
+            {/* Card 4 */}
+            <div className="glass-panel teaser-card">
+              <div className="teaser-icon-wrapper">
+                <Heart size={24} style={{ color: 'var(--primary-color)' }} />
+              </div>
+              <h3 style={{ fontSize: '1.25rem', fontFamily: "'Playfair Display', serif", color: 'var(--text-heading)' }}>
+                Warm Ambient Dining
+              </h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', textAlign: 'center', lineHeight: '1.6' }}>
+                Frosted glass aesthetics, dark wood textures, and ambient Edison lighting for unforgettable family gatherings.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Styled Responsive Classes (Anti-Inline Media Query Warnings) */}
+      {/* 3. MERGED ABOUT SECTION */}
+      <section 
+        id="about" 
+        style={{ 
+          padding: '6rem 2rem', 
+          backgroundColor: 'var(--surface-color)', 
+          borderTop: '1px solid var(--border-color)',
+          borderBottom: '1px solid var(--border-color)',
+          position: 'relative' 
+        }}
+      >
+        <div className="container">
+          <div className="section-header" style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+            <span className="section-title-sub">Our Heritage</span>
+            <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontFamily: "'Playfair Display', serif", marginBottom: '1rem' }}>
+              About Barnacle Bistro
+            </h2>
+            <p style={{ color: 'var(--text-muted)', maxWidth: '640px', margin: '0 auto', fontSize: '1rem' }}>
+              Discover Srinagar’s finest culinary journey, blending local valley traditions with contemporary gourmet standards.
+            </p>
+          </div>
+
+          <div className="about-grid">
+            {/* Story Text */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', justifyContent: 'center' }}>
+              <h3 style={{ fontSize: '1.85rem', fontFamily: "'Playfair Display', serif", color: 'var(--primary-color)', lineHeight: '1.3' }}>
+                Redefining Casual Gourmet Dining in Srinagar
+              </h3>
+              
+              <p style={{ color: 'var(--text-color)', fontWeight: 300, lineHeight: '1.75', fontSize: '1.02rem' }}>
+                {siteConfig.brand.aboutLong}
+              </p>
+
+              <p style={{ color: 'var(--text-muted)', fontWeight: 300, lineHeight: '1.7', fontSize: '0.96rem' }}>
+                {siteConfig.brand.ambianceNote}
+              </p>
+
+              {/* Highlights Pill Badges */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginTop: '0.5rem' }}>
+                <div className="glass-panel" style={{ padding: '1rem 1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <CheckCircle2 size={20} style={{ color: 'var(--primary-color)', flexShrink: 0 }} />
+                  <div>
+                    <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-heading)' }}>Wazwan Heritage</h4>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Recipes perfected by master wazas</p>
+                  </div>
+                </div>
+
+                <div className="glass-panel" style={{ padding: '1rem 1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <CheckCircle2 size={20} style={{ color: 'var(--primary-color)', flexShrink: 0 }} />
+                  <div>
+                    <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-heading)' }}>Valley Sourced</h4>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Pampore saffron & fresh Kashmir dairy</p>
+                  </div>
+                </div>
+
+                <div className="glass-panel" style={{ padding: '1rem 1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <CheckCircle2 size={20} style={{ color: 'var(--primary-color)', flexShrink: 0 }} />
+                  <div>
+                    <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-heading)' }}>Cozy Atmosphere</h4>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Perfect for cold Srinagar evenings</p>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ marginTop: '0.5rem' }}>
+                <button 
+                  onClick={() => handleCTA('menu')} 
+                  className="btn btn-primary"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+                >
+                  <span>Explore Our Food Menu</span>
+                  <ArrowRight size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* Visual Photo Showcase */}
+            <div className="about-photos-grid">
+              <div
+                className="glass-panel"
+                style={{
+                  backgroundImage: 'url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=85&w=800")',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  borderRadius: '24px',
+                  minHeight: '280px'
+                }}
+              />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div
+                  className="glass-panel"
+                  style={{
+                    backgroundImage: 'url("https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800")',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    borderRadius: '20px',
+                    flex: 1,
+                    minHeight: '135px'
+                  }}
+                />
+                <div
+                  className="glass-panel"
+                  style={{
+                    backgroundImage: 'url("https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&q=80&w=800")',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    borderRadius: '20px',
+                    flex: 1,
+                    minHeight: '135px'
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. SIGNATURE DISHES TEASER SECTION */}
+      <section style={{ padding: '6rem 2rem', backgroundColor: 'var(--bg-color)' }}>
+        <div className="container">
+          <div className="section-header" style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+            <span className="section-title-sub">Chef’s Masterpieces</span>
+            <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontFamily: "'Playfair Display', serif", marginBottom: '1rem' }}>
+              Signature Creations
+            </h2>
+            <p style={{ color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto' }}>
+              Handcrafted specialties that define the culinary identity of Barnacle Bistro.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+            {siteConfig.signatures.slice(0, 4).map((dish) => (
+              <div 
+                key={dish.id} 
+                className="glass-panel" 
+                style={{ 
+                  borderRadius: '24px', 
+                  overflow: 'hidden', 
+                  display: 'flex', 
+                  flexDirection: 'column',
+                  transition: 'transform 0.3s ease, border-color 0.3s ease'
+                }}
+              >
+                <div style={{ height: '200px', position: 'relative', overflow: 'hidden' }}>
+                  <img 
+                    src={dish.image} 
+                    alt={dish.name} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    loading="lazy" 
+                  />
+                  <span 
+                    style={{
+                      position: 'absolute',
+                      top: '1rem',
+                      right: '1rem',
+                      background: 'rgba(15, 16, 20, 0.75)',
+                      backdropFilter: 'blur(8px)',
+                      color: 'var(--primary-color)',
+                      fontSize: '0.75rem',
+                      fontWeight: 700,
+                      padding: '0.35rem 0.8rem',
+                      borderRadius: '20px',
+                      border: '1px solid rgba(212, 175, 55, 0.4)'
+                    }}
+                  >
+                    {dish.tag}
+                  </span>
+                </div>
+                <div style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
+                    <h3 style={{ fontSize: '1.25rem', fontFamily: "'Playfair Display', serif", color: 'var(--text-heading)' }}>
+                      {dish.name}
+                    </h3>
+                    <span style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--primary-color)' }}>
+                      ₹{dish.price}
+                    </span>
+                  </div>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.6', flex: 1, marginBottom: '1.25rem' }}>
+                    {dish.description}
+                  </p>
+                  <button 
+                    onClick={() => handleCTA('order')} 
+                    className="btn btn-secondary"
+                    style={{ width: '100%', padding: '0.75rem', fontSize: '0.85rem' }}
+                  >
+                    Order Dish
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
+            <button 
+              onClick={() => handleCTA('menu')} 
+              className="btn btn-primary"
+              style={{ padding: '0.9rem 2.5rem' }}
+            >
+              View Complete Menu ({siteConfig.menu.reduce((acc, cat) => acc + cat.items.length, 0)} Items)
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. MERGED REVIEWS & TESTIMONIALS SECTION */}
+      <section 
+        id="reviews" 
+        style={{ 
+          padding: '6rem 2rem', 
+          backgroundColor: 'var(--surface-color)',
+          borderTop: '1px solid var(--border-color)',
+          borderBottom: '1px solid var(--border-color)'
+        }}
+      >
+        <div className="container">
+          <div className="section-header" style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+            <span className="section-title-sub">Verified Guest Stories</span>
+            <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontFamily: "'Playfair Display', serif", marginBottom: '1rem' }}>
+              Customer Reviews & Ratings
+            </h2>
+            <p style={{ color: 'var(--text-muted)', maxWidth: '620px', margin: '0 auto', fontSize: '1rem' }}>
+              Here is what food lovers from Srinagar and visiting travelers have to say about their Barnacle Bistro experience.
+            </p>
+          </div>
+
+          {/* Rating Summary Strip */}
+          <div 
+            className="glass-panel" 
+            style={{ 
+              maxWidth: '750px', 
+              margin: '0 auto 3rem auto', 
+              padding: '1.5rem 2rem', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'space-around',
+              flexWrap: 'wrap',
+              gap: '1.5rem',
+              borderRadius: '20px'
+            }}
+          >
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--primary-color)', fontFamily: "'Playfair Display', serif" }}>
+                4.5
+              </span>
+              <div style={{ display: 'flex', gap: '3px', justifyContent: 'center', marginTop: '0.2rem' }}>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} size={15} fill="#24963f" style={{ color: '#24963f' }} />
+                ))}
+              </div>
+              <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.3rem' }}>Average Rating</p>
+            </div>
+
+            <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--border-color)' }} className="desktop-only-divider" />
+
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--text-heading)' }}>500+</span>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Google & Zomato Reviews</p>
+            </div>
+
+            <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--border-color)' }} className="desktop-only-divider" />
+
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ fontSize: '1.8rem', fontWeight: 700, color: '#24963f' }}>98%</span>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Recommendation Rate</p>
+            </div>
+          </div>
+
+          {/* Reviews Grid (Green Stars, No Profile Avatars) */}
+          <div className="reviews-grid">
+            {siteConfig.reviews.map((review) => (
+              <div key={review.id} className="review-card glass-panel">
+                <div style={{ position: 'absolute', top: '1rem', right: '1.5rem', color: 'var(--primary-color)', opacity: 0.08, pointerEvents: 'none' }}>
+                  <Quote size={64} fill="currentColor" />
+                </div>
+
+                {/* Stars — Green */}
+                <div style={{ display: 'flex', gap: '3px', marginBottom: '1rem' }}>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      size={16}
+                      fill={i < review.rating ? '#24963f' : 'none'}
+                      style={{ color: i < review.rating ? '#24963f' : 'var(--text-muted)' }}
+                    />
+                  ))}
+                </div>
+
+                <p style={{ fontSize: '0.98rem', color: 'var(--text-color)', fontWeight: 300, fontStyle: 'italic', lineHeight: '1.7', flex: 1, position: 'relative', zIndex: 1 }}>
+                  "{review.text}"
+                </p>
+
+                <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1rem', marginTop: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div>
+                    <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-heading)', marginBottom: '2px' }}>{review.author}</h4>
+                    <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{review.date}</p>
+                  </div>
+                  <span style={{ fontSize: '0.65rem', color: '#24963f', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', background: 'rgba(36,150,63,0.1)', padding: '0.25rem 0.6rem', borderRadius: '20px' }}>
+                    ✓ Verified Dining
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. MERGED FREQUENTLY ASKED QUESTIONS (FAQ) SECTION */}
+      <section id="faq" style={{ padding: '6rem 2rem', backgroundColor: 'var(--bg-color)' }}>
+        <div className="container">
+          <div className="section-header" style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+            <span className="section-title-sub">Got Questions?</span>
+            <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontFamily: "'Playfair Display', serif", marginBottom: '1rem' }}>
+              Frequently Asked Questions
+            </h2>
+            <p style={{ color: 'var(--text-muted)', maxWidth: '620px', margin: '0 auto', fontSize: '1rem' }}>
+              All essential details regarding our timings, delivery options, reservations, and location in Srinagar.
+            </p>
+          </div>
+
+          <div style={{ maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {siteConfig.faqs.map((faq) => {
+              const isOpen = activeFaq === faq.id;
+              return (
+                <div
+                  key={faq.id}
+                  className="glass-panel"
+                  style={{
+                    background: 'var(--glass-bg)',
+                    border: isOpen ? '1px solid var(--primary-color)' : '1px solid var(--glass-border)',
+                    overflow: 'hidden',
+                    transition: 'all 0.3s ease',
+                    boxShadow: isOpen ? 'var(--glass-shadow)' : 'none'
+                  }}
+                >
+                  <button
+                    onClick={() => toggleFaq(faq.id)}
+                    style={{
+                      width: '100%',
+                      textAlign: 'left',
+                      padding: '1.25rem 1.5rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '1rem',
+                      cursor: 'pointer',
+                      background: 'transparent',
+                      border: 'none',
+                      outline: 'none',
+                      fontFamily: 'var(--font-sans)'
+                    }}
+                    className="faq-toggle-btn"
+                    aria-expanded={isOpen}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      <HelpCircle size={18} style={{ color: isOpen ? 'var(--primary-color)' : 'var(--text-muted)', flexShrink: 0 }} />
+                      <span style={{ color: 'var(--text-heading)', fontWeight: 600, fontSize: '1rem' }}>{faq.question}</span>
+                    </div>
+                    
+                    <ChevronDown
+                      size={18}
+                      style={{
+                        color: isOpen ? 'var(--primary-color)' : 'var(--text-muted)',
+                        flexShrink: 0,
+                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.3s ease'
+                      }}
+                    />
+                  </button>
+
+                  <div
+                    style={{
+                      overflow: 'hidden',
+                      maxHeight: isOpen ? '300px' : '0px',
+                      opacity: isOpen ? 1 : 0,
+                      transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                      borderTop: isOpen ? '1px solid var(--border-color)' : 'none'
+                    }}
+                  >
+                    <div style={{ padding: '1.25rem 1.5rem', backgroundColor: 'var(--surface-color)' }}>
+                      <p style={{ fontSize: '0.92rem', color: 'var(--text-color)', fontWeight: 300, lineHeight: '1.65' }}>
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. BOTTOM CTA CALLOUT BANNER */}
+      <section 
+        style={{ 
+          padding: '5rem 2rem', 
+          backgroundColor: 'var(--surface-color)', 
+          borderTop: '1px solid var(--border-color)',
+          textAlign: 'center' 
+        }}
+      >
+        <div className="container" style={{ maxWidth: '780px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', fontFamily: "'Playfair Display', serif", marginBottom: '1.2rem', color: 'var(--text-heading)' }}>
+            Ready to Experience Barnacle Bistro?
+          </h2>
+          <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', lineHeight: '1.7', marginBottom: '2rem' }}>
+            Join us in Gulshanabad Hyderpora for an exquisite dining experience, or order directly for prompt home delivery across Srinagar.
+          </p>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button 
+              onClick={() => handleCTA('order')} 
+              className="btn btn-primary"
+              style={{ padding: '0.9rem 2.2rem', fontSize: '0.95rem' }}
+            >
+              Order Online / Reserve Table
+            </button>
+            <a 
+              href="tel:+919906387311"
+              className="btn btn-secondary"
+              style={{ padding: '0.9rem 2.2rem', fontSize: '0.95rem' }}
+            >
+              Call: +91 9906387311
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Inline Styles */}
       <style>{`
-        .hero-grid {
-          display: grid;
-          grid-template-columns: 1.15fr 0.85fr;
-          align-items: center;
-          gap: 4rem;
-        }
-        .hero-left-content {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-          text-align: left;
-        }
-        /* --- Initial hidden states so GSAP animates IN cleanly (no flash) --- */
-        .hero-subtitle {
-          opacity: 0;
-          transform: translateY(15px);
-        }
-        .hero-tagline {
-          font-family: 'Outfit', sans-serif;
-          font-size: 0.85rem;
-          color: var(--primary-color);
-          letter-spacing: 3px;
-          font-weight: 700;
-          text-transform: uppercase;
-          border: 1px solid var(--border-color);
-          padding: 0.45rem 1.1rem;
-          border-radius: 30px;
-          width: fit-content;
-          background-color: var(--accent-glow);
-          /* Start invisible — GSAP will fade in */
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        .hero-title-word {
-          display: inline-block;
-          /* Start invisible — GSAP will fade in */
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        .hero-btn-container {
-          display: flex;
-          gap: 1rem;
-          margin-top: 1.25rem;
-          /* Start invisible — GSAP will fade in */
-          opacity: 0;
-          transform: scale(0.95);
-        }
-        .hero-badges-row {
-          display: flex;
-          gap: clamp(1rem, 4vw, 2.25rem);
-          margin-top: 2rem;
-          border-top: 1px solid var(--border-color);
-          padding-top: 1.75rem;
-        }
-        .hero-badge-container {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          /* Start invisible — GSAP will fade in */
-          opacity: 0;
-          transform: translateY(15px);
-        }
-        .badge-stat {
-          font-size: clamp(1.2rem, 3.5vw, 1.6rem);
-          font-weight: 700;
-          color: var(--primary-color);
-          font-family: var(--font-sans);
-          white-space: nowrap;
-        }
-        .badge-label {
-          font-size: 0.75rem;
-          color: var(--text-muted);
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          margin-top: 2px;
-          white-space: nowrap;
-        }
-        .hero-right-media {
-          position: relative;
-          width: 100%;
-          height: 460px;
-          border-radius: 24px;
-          overflow: hidden;
-          box-shadow: var(--card-shadow);
-          border: 1.5px solid var(--border-color);
-        }
         .teaser-cards-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 2rem;
+          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+          gap: 1.5rem;
         }
         .teaser-card {
-          padding: 2.5rem;
+          padding: 2.25rem 1.75rem;
           display: flex;
           flex-direction: column;
-          gap: 1rem;
           align-items: center;
+          gap: 0.85rem;
+          border-radius: 20px;
+          transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .teaser-card:hover {
+          transform: translateY(-5px);
+          border-color: var(--border-hover);
         }
         .teaser-icon-wrapper {
-          width: 54px;
-          height: 54px;
+          width: 52px;
+          height: 52px;
           border-radius: 50%;
           background: var(--accent-glow);
           display: flex;
           align-items: center;
-          color: var(--primary-color);
-          justify-content: center;
+          justifyContent: center;
+          margin-bottom: 0.5rem;
+          border: 1px solid var(--border-color);
         }
-        @media (max-width: 991px) {
-          .hero-grid {
-            grid-template-columns: 1fr !important;
-            text-align: center !important;
-            gap: 3rem !important;
-          }
-          .hero-left-content {
-            text-align: center !important;
-            align-items: center !important;
-          }
-          .hero-btn-container {
-            justify-content: center !important;
-          }
-          .hero-badges-row {
-            justify-content: center !important;
-            gap: 1.75rem !important;
-          }
-          .teaser-cards-grid {
-            grid-template-columns: 1fr !important;
-            gap: 1.5rem !important;
-          }
-          .desktop-only-br {
-            display: none !important;
-          }
+        .about-grid {
+          display: grid;
+          grid-template-columns: 1.15fr 0.85fr;
+          gap: 4rem;
+          align-items: center;
         }
-        @media (max-width: 580px) {
-          .hero-badges-row {
-            flex-direction: column !important;
-            align-items: center !important;
-            gap: 1.25rem !important;
-            border-top: 1px solid var(--border-color);
-            padding-top: 1.5rem;
-            width: 100%;
-          }
-          .hero-badge-container {
-            align-items: center !important;
-          }
+        .about-photos-grid {
+          display: grid;
+          grid-template-columns: 1.2fr 0.8fr;
+          gap: 1rem;
+          height: 380px;
+        }
+        .reviews-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+          margin-top: 1rem;
+        }
+        .review-card {
+          padding: 2.25rem;
+          position: relative;
+          background: var(--glass-bg);
+          border: 1px solid var(--glass-border);
+          border-radius: 20px;
+          display: flex;
+          flex-direction: column;
+          transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .review-card:hover {
+          transform: translateY(-4px);
+          border-color: var(--border-hover);
+        }
+        @media (max-width: 900px) {
+          .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+          .reviews-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+          .about-photos-grid { height: 260px; }
+          .desktop-only-divider { display: none !important; }
         }
       `}</style>
     </div>

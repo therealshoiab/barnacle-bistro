@@ -46,6 +46,13 @@ export interface FAQItem {
   answer: string;
 }
 
+export interface SlideshowItem {
+  id: string;
+  image: string;
+  title: string;
+  subtitle: string;
+}
+
 export const siteConfig = {
   // Brand Metadata
   brand: {
@@ -94,8 +101,72 @@ export const siteConfig = {
   // Interactive 3D Scene
   spline: {
     sceneUrl: 'https://prod.spline.design/6Wq1Q7YEBSpZqZhu/scene.splinecode', // A premium dark/minimalist interactive 3D model
-    fallbackImage: '/hero-interior.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=95&w=1200',
   },
+
+  // 10 Curated Slideshow Images Matching the Upscale Bistro Theme
+  slideshow: [
+    {
+      id: 'slide-1',
+      image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=85&w=1600',
+      title: "Upscale Bistro Ambience",
+      subtitle: "Warm dark woods, ambient Edison bulbs & Srinagar's cozy evening hospitality"
+    },
+    {
+      id: 'slide-2',
+      image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=85&w=1600',
+      title: "Sizzling Continental Grills",
+      subtitle: "Tender grilled steaks, lamb skewers & rosemary herb butter sizzlers"
+    },
+    {
+      id: 'slide-3',
+      image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&q=85&w=1600',
+      title: "Artisan Steamed Momos",
+      subtitle: "Delicate Himalayan dumplings served with chef's spicy red chili oil"
+    },
+    {
+      id: 'slide-4',
+      image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=85&w=1600',
+      title: "Gourmet Loaded Burgers",
+      subtitle: "Juicy handcrafted chicken patties, double cheddar & golden crisp fries"
+    },
+    {
+      id: 'slide-5',
+      image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&q=85&w=1600',
+      title: "Royal Dum Biryani",
+      subtitle: "Slow-cooked saffron basmati rice layered with succulent spiced mutton"
+    },
+    {
+      id: 'slide-6',
+      image: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&q=85&w=1600',
+      title: "Authentic Kashmiri Wazwan",
+      subtitle: "Traditional Rista, Gushtaba & Rogan Josh prepared by master wazas"
+    },
+    {
+      id: 'slide-7',
+      image: 'https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&q=85&w=1600',
+      title: "Crunchy Kurkure Momos",
+      subtitle: "Golden crispy fried momos coated in seasoned crunch with spicy dip"
+    },
+    {
+      id: 'slide-8',
+      image: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&q=85&w=1600',
+      title: "Intimate Candlelit Dining",
+      subtitle: "The premier evening destination for families, couples & friends in Hyderpora"
+    },
+    {
+      id: 'slide-9',
+      image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=85&w=1600',
+      title: "Refreshing Artisan Mocktails",
+      subtitle: "Zesty fresh mint mojitos, blue lagoon sparklers & soothing Kashmiri Kahwa"
+    },
+    {
+      id: 'slide-10',
+      image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&q=85&w=1600',
+      title: "Decadent Sizzling Brownies",
+      subtitle: "Warm chocolate fudge brownie served hot with velvety vanilla bean ice cream"
+    }
+  ] as SlideshowItem[],
 
   // Signature Dishes
   signatures: [
@@ -130,6 +201,22 @@ export const siteConfig = {
       price: 90,
       image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=800',
       tag: 'Authentic Local'
+    },
+    {
+      id: 'sig-5',
+      name: 'Sizzling Grilled Chicken Steak',
+      description: 'Char-grilled chicken breast steak drenched in creamy pepper mushroom reduction, served on a sizzling hot plate with buttered greens & fries.',
+      price: 360,
+      image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800',
+      tag: 'Continental Hit'
+    },
+    {
+      id: 'sig-6',
+      name: 'Tandoori Malai Chicken Momos',
+      description: 'Clay-oven roasted succulent chicken dumplings smothered in fresh malai cream, melted butter, and house roasted spices.',
+      price: 210,
+      image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&q=80&w=800',
+      tag: 'Guest Favorite'
     }
   ] as SignatureDish[],
 
@@ -143,7 +230,9 @@ export const siteConfig = {
         { id: 'st-2', name: 'Peri Peri French Fries', description: 'Crispy fries tossed in our signature hot peri peri spice mix.', price: 130, isPopular: true, isVeg: true, image: 'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&q=80&w=400' },
         { id: 'st-3', name: 'Honey Chilli Potato', description: 'Crispy potato fingers glazed in a sweet and spicy honey chilli sauce.', price: 190, isVeg: true, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=400' },
         { id: 'st-4', name: 'Chicken Popcorn', description: 'Bite-sized tender chicken nuggets fried to crunchy perfection.', price: 210, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&q=80&w=400' },
-        { id: 'st-5', name: 'Barnacle Special Chicken Burger', description: 'Gourmet chicken patty, melted cheese, crisp lettuce, tomato, and bistro sauce.', price: 230, isPopular: true, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=400' }
+        { id: 'st-5', name: 'Barnacle Special Chicken Burger', description: 'Gourmet chicken patty, melted cheese, crisp lettuce, tomato, and bistro sauce.', price: 230, isPopular: true, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=400' },
+        { id: 'st-6', name: 'Sizzling Grilled Chicken Steak', description: 'Tender chicken steak grilled to perfection, topped with creamy pepper mushroom sauce, served with buttered veggies and crispy fries.', price: 360, isPopular: true, image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400' },
+        { id: 'st-7', name: 'Double Cheese Crispy Zinger Burger', description: 'Extra crispy spiced chicken fillet layered with double melted cheddar, crunchy lettuce, and house bistro mayo in a toasted brioche bun.', price: 260, isPopular: true, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=400' }
       ]
     },
     {
@@ -154,7 +243,8 @@ export const siteConfig = {
         { id: 'mo-2', name: 'Fried Chicken Momos (8 Pcs)', description: 'Crisp, golden-fried chicken momos served with spicy red chutney.', price: 160, image: 'https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&q=80&w=400' },
         { id: 'mo-3', name: 'Kurkure Chicken Momos (8 Pcs)', description: 'Crispy, cornflake-crusted momos offering the ultimate crunch.', price: 180, isPopular: true, image: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&q=80&w=400' },
         { id: 'mo-4', name: 'Veg Steamed Momos (8 Pcs)', description: 'Classic dumplings stuffed with finely minced garden vegetables.', price: 110, isVeg: true, image: 'https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&q=80&w=400' },
-        { id: 'mo-5', name: 'Veg Kurkure Momos (8 Pcs)', description: 'Crispy-fried vegetable momos coated in crunchy flakes.', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&q=80&w=400' }
+        { id: 'mo-5', name: 'Veg Kurkure Momos (8 Pcs)', description: 'Crispy-fried vegetable momos coated in crunchy flakes.', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&q=80&w=400' },
+        { id: 'mo-6', name: 'Tandoori Malai Chicken Momos (8 Pcs)', description: 'Tandoor-roasted chicken momos smothered in rich cream, melted butter, chaat masala, and fresh coriander.', price: 210, isPopular: true, image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&q=80&w=400' }
       ]
     },
     {
@@ -165,7 +255,8 @@ export const siteConfig = {
         { id: 'wz-2', name: 'Mutton Gushtaba (1 Pc)', description: 'Succulent mutton meatball slow-cooked in a smooth, velvety curd gravy.', price: 390, image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&q=80&w=400' },
         { id: 'wz-3', name: 'Mutton Kanti', description: 'Tender mutton pieces sautéed with sliced onions, green chillies, and local spices.', price: 350, isSpicy: true, image: 'https://images.unsplash.com/photo-1574484284002-952d92a03a52?auto=format&fit=crop&q=80&w=400' },
         { id: 'wz-4', name: 'Tabak Maaz (2 Pcs)', description: 'Deep-fried lamb ribs cooked in milk and spices. Crispy on the outside, tender inside.', price: 360, image: 'https://images.unsplash.com/photo-1529694157872-4e0c0f3b238b?auto=format&fit=crop&q=80&w=400' },
-        { id: 'wz-5', name: 'Chicken Kanti', description: 'Boneless chicken cubes pan-fried with green chillies, onions, and Kashmiri spices.', price: 290, isSpicy: true, image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&q=80&w=400' }
+        { id: 'wz-5', name: 'Chicken Kanti', description: 'Boneless chicken cubes pan-fried with green chillies, onions, and Kashmiri spices.', price: 290, isSpicy: true, image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&q=80&w=400' },
+        { id: 'wz-6', name: 'Mutton Rogan Josh (2 Pcs)', description: 'World-renowned Kashmiri delicacy cooked in maval flower essence, dried Kashmiri red chillies, and traditional waza aromatic spices.', price: 390, isPopular: true, isSpicy: true, image: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&q=80&w=400' }
       ]
     },
     {
@@ -209,7 +300,8 @@ export const siteConfig = {
         { id: 'bv-2', name: 'Noon Chai', description: 'Traditional Kashmiri pink tea, salty, creamy, and topped with milk skin.', price: 70, isVeg: true, image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400' },
         { id: 'bv-3', name: 'Fresh Mint Mojito', description: 'Refreshing blend of fresh mint leaves, lime juice, sugar, and club soda.', price: 130, isVeg: true, image: 'https://images.unsplash.com/photo-1523371054106-bbf80586c38c?auto=format&fit=crop&q=80&w=400' },
         { id: 'bv-4', name: 'Cold Coffee with Ice Cream', description: 'Chilled blended milk, espresso, and sugar, topped with a scoop of vanilla ice cream.', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&q=80&w=400' },
-        { id: 'bv-5', name: 'Fresh Lime Soda (Sweet/Salted)', description: 'Zesty fresh lime juice mixed with fresh soda water.', price: 80, isVeg: true, image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&q=80&w=400' }
+        { id: 'bv-5', name: 'Fresh Lime Soda (Sweet/Salted)', description: 'Zesty fresh lime juice mixed with fresh soda water.', price: 80, isVeg: true, image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&q=80&w=400' },
+        { id: 'bv-6', name: 'Blue Lagoon Sparkler Mocktail', description: 'Vibrant blue curaçao syrup shaken with crushed ice, fresh lemon juice, mint sprigs, and chilled sparkling soda.', price: 140, isPopular: true, isVeg: true, image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=400' }
       ]
     },
     {

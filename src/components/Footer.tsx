@@ -7,6 +7,18 @@ interface FooterProps {
 
 export default function Footer({ setCurrentPage }: FooterProps) {
   const handleLinkClick = (key: string) => {
+    if (key === 'about' || key === 'reviews' || key === 'faq') {
+      setCurrentPage('home');
+      window.location.hash = `#/home#${key}`;
+      setTimeout(() => {
+        const el = document.getElementById(key);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+      return;
+    }
+
     setCurrentPage(key);
     window.location.hash = `#/${key}`;
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -76,6 +88,7 @@ export default function Footer({ setCurrentPage }: FooterProps) {
             <li><a style={{ cursor: 'pointer' }} onClick={() => handleLinkClick('signatures')}>Signature Showcase</a></li>
             <li><a style={{ cursor: 'pointer' }} onClick={() => handleLinkClick('gallery')}>Visual Gallery</a></li>
             <li><a style={{ cursor: 'pointer' }} onClick={() => handleLinkClick('reviews')}>Guest Reviews</a></li>
+            <li><a style={{ cursor: 'pointer' }} onClick={() => handleLinkClick('order')}>Order & Contact</a></li>
             <li><a style={{ cursor: 'pointer' }} onClick={() => handleLinkClick('faq')}>FAQ</a></li>
           </ul>
         </div>

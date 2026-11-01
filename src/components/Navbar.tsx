@@ -32,12 +32,24 @@ export default function Navbar({
     { key: 'signatures', label: 'Signatures' },
     { key: 'gallery', label: 'Gallery' },
     { key: 'reviews', label: 'Reviews' },
-    { key: 'order', label: 'Order Online' },
-    { key: 'contact', label: 'Contact' },
-    { key: 'faq', label: 'FAQ' }
+    { key: 'faq', label: 'FAQ' },
+    { key: 'order', label: 'Order & Contact' }
   ];
 
   const handleLinkClick = (key: string) => {
+    if (key === 'about' || key === 'reviews' || key === 'faq') {
+      setCurrentPage('home');
+      window.location.hash = `#/home#${key}`;
+      setIsMobileMenuOpen(false);
+      setTimeout(() => {
+        const el = document.getElementById(key);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+      return;
+    }
+
     setCurrentPage(key);
     window.location.hash = `#/${key}`;
     setIsMobileMenuOpen(false);
