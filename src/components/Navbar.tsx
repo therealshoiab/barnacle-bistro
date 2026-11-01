@@ -27,29 +27,13 @@ export default function Navbar({
 
   const navLinks = [
     { key: 'home', label: 'Home' },
-    { key: 'about', label: 'About' },
     { key: 'menu', label: 'Menu' },
     { key: 'signatures', label: 'Signatures' },
     { key: 'gallery', label: 'Gallery' },
-    { key: 'reviews', label: 'Reviews' },
-    { key: 'faq', label: 'FAQ' },
     { key: 'order', label: 'Order & Contact' }
   ];
 
   const handleLinkClick = (key: string) => {
-    if (key === 'about' || key === 'reviews' || key === 'faq') {
-      setCurrentPage('home');
-      window.location.hash = `#/home#${key}`;
-      setIsMobileMenuOpen(false);
-      setTimeout(() => {
-        const el = document.getElementById(key);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-      return;
-    }
-
     setCurrentPage(key);
     window.location.hash = `#/${key}`;
     setIsMobileMenuOpen(false);

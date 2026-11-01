@@ -104,14 +104,14 @@ Please confirm table availability for us. Thank you!`;
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Live menu & fast delivery</p>
                 </div>
               </div>
-              <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+              <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6', flex: 1, margin: '0.5rem 0 1rem 0' }}>
                 Order directly through our verified Zomato restaurant listing with real-time live order tracking.
               </p>
               <a
                 href={siteConfig.delivery.zomato}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn"
+                className="btn order-btn-aligned"
                 style={{
                   background: '#E23744',
                   color: '#FFFFFF',
@@ -121,6 +121,9 @@ Please confirm table availability for us. Thank you!`;
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '0.5rem',
+                  height: '48px',
+                  borderRadius: '24px',
+                  whiteSpace: 'nowrap',
                   boxShadow: '0 4px 15px rgba(226, 55, 68, 0.35)'
                 }}
               >
@@ -140,14 +143,14 @@ Please confirm table availability for us. Thank you!`;
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Doorstep food service</p>
                 </div>
               </div>
-              <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+              <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6', flex: 1, margin: '0.5rem 0 1rem 0' }}>
                 Find Barnacle Bistro on Swiggy for quick deliveries across Chanapora, Hyderpora & Srinagar.
               </p>
               <a
                 href={siteConfig.delivery.swiggy}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn"
+                className="btn order-btn-aligned"
                 style={{
                   background: '#FC8019',
                   color: '#FFFFFF',
@@ -157,6 +160,9 @@ Please confirm table availability for us. Thank you!`;
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '0.5rem',
+                  height: '48px',
+                  borderRadius: '24px',
+                  whiteSpace: 'nowrap',
                   boxShadow: '0 4px 15px rgba(252, 128, 25, 0.35)'
                 }}
               >
@@ -176,12 +182,12 @@ Please confirm table availability for us. Thank you!`;
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Quick chat ordering</p>
                 </div>
               </div>
-              <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+              <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6', flex: 1, margin: '0.5rem 0 1rem 0' }}>
                 Message our order desk directly on WhatsApp to customize dishes, order takeaway, or ask for daily specials.
               </p>
               <button
                 onClick={handleDirectOrder}
-                className="btn"
+                className="btn order-btn-aligned"
                 style={{
                   background: '#25D366',
                   color: '#FFFFFF',
@@ -193,6 +199,9 @@ Please confirm table availability for us. Thank you!`;
                   gap: '0.5rem',
                   border: 'none',
                   cursor: 'pointer',
+                  height: '48px',
+                  borderRadius: '24px',
+                  whiteSpace: 'nowrap',
                   boxShadow: '0 4px 15px rgba(37, 211, 102, 0.35)'
                 }}
               >
@@ -212,22 +221,26 @@ Please confirm table availability for us. Thank you!`;
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Instant assistance</p>
                 </div>
               </div>
-              <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+              <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6', flex: 1, margin: '0.5rem 0 1rem 0' }}>
                 Speak directly with our bistro desk in Hyderpora for orders, party inquiries, or directions.
               </p>
               <a
                 href={`tel:${siteConfig.contact.phone}`}
-                className="btn btn-primary"
+                className="btn btn-primary order-btn-aligned"
                 style={{
                   fontWeight: 700,
                   fontSize: '0.9rem',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '0.5rem'
+                  gap: '0.5rem',
+                  height: '48px',
+                  borderRadius: '24px',
+                  whiteSpace: 'nowrap',
+                  boxShadow: '0 4px 15px rgba(212, 175, 55, 0.35)'
                 }}
               >
-                <span>Call: {siteConfig.contact.phoneDisplay}</span>
+                <span>Call Restaurant</span>
                 <Phone size={15} />
               </a>
             </div>
@@ -504,18 +517,29 @@ Please confirm table availability for us. Thank you!`;
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           gap: 1.5rem;
+          align-items: stretch;
         }
         .order-channel-card {
           padding: 2rem;
           border-radius: 20px;
           display: flex;
           flex-direction: column;
-          gap: 1.25rem;
+          justifyContent: space-between;
+          height: 100%;
+          box-sizing: border-box;
           transition: transform 0.3s ease, border-color 0.3s ease;
         }
         .order-channel-card:hover {
           transform: translateY(-4px);
           border-color: var(--border-hover);
+        }
+        .order-btn-aligned {
+          width: 100%;
+          height: 48px;
+          border-radius: 24px;
+          box-sizing: border-box;
+          white-space: nowrap;
+          margin-top: auto;
         }
         .reservation-location-grid {
           display: grid;

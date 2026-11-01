@@ -12,17 +12,18 @@ interface HomeProps {
 
 export default function Home({ setCurrentPage }: HomeProps) {
   const [activeFaq, setActiveFaq] = useState<string | null>(siteConfig.faqs[0]?.id || null);
+  const [visibleReviews, setVisibleReviews] = useState(8);
 
-  // Check if hash has a section target to scroll to (e.g., #about, #reviews, #faq)
+  // Check if hash has a section target to scroll to (e.g., #about, #faq, #reviews)
   useEffect(() => {
     const handleScrollTarget = () => {
       const hash = window.location.hash;
       if (hash.includes('about')) {
         document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-      } else if (hash.includes('reviews')) {
-        document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' });
       } else if (hash.includes('faq')) {
         document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+      } else if (hash.includes('reviews')) {
+        document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' });
       }
     };
 
@@ -39,6 +40,10 @@ export default function Home({ setCurrentPage }: HomeProps) {
 
   const toggleFaq = (id: string) => {
     setActiveFaq((prev) => (prev === id ? null : id));
+  };
+
+  const loadMoreReviews = () => {
+    setVisibleReviews((prev) => Math.min(prev + 12, siteConfig.reviews.length));
   };
 
   return (
@@ -234,196 +239,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
         </div>
       </section>
 
-      {/* 4. SIGNATURE DISHES TEASER SECTION */}
-      <section style={{ padding: '6rem 2rem', backgroundColor: 'var(--bg-color)' }}>
-        <div className="container">
-          <div className="section-header" style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-            <span className="section-title-sub">Chef’s Masterpieces</span>
-            <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontFamily: "'Playfair Display', serif", marginBottom: '1rem' }}>
-              Signature Creations
-            </h2>
-            <p style={{ color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto' }}>
-              Handcrafted specialties that define the culinary identity of Barnacle Bistro.
-            </p>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-            {siteConfig.signatures.slice(0, 4).map((dish) => (
-              <div 
-                key={dish.id} 
-                className="glass-panel" 
-                style={{ 
-                  borderRadius: '24px', 
-                  overflow: 'hidden', 
-                  display: 'flex', 
-                  flexDirection: 'column',
-                  transition: 'transform 0.3s ease, border-color 0.3s ease'
-                }}
-              >
-                <div style={{ height: '200px', position: 'relative', overflow: 'hidden' }}>
-                  <img 
-                    src={dish.image} 
-                    alt={dish.name} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    loading="lazy" 
-                  />
-                  <span 
-                    style={{
-                      position: 'absolute',
-                      top: '1rem',
-                      right: '1rem',
-                      background: 'rgba(15, 16, 20, 0.75)',
-                      backdropFilter: 'blur(8px)',
-                      color: 'var(--primary-color)',
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      padding: '0.35rem 0.8rem',
-                      borderRadius: '20px',
-                      border: '1px solid rgba(212, 175, 55, 0.4)'
-                    }}
-                  >
-                    {dish.tag}
-                  </span>
-                </div>
-                <div style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
-                    <h3 style={{ fontSize: '1.25rem', fontFamily: "'Playfair Display', serif", color: 'var(--text-heading)' }}>
-                      {dish.name}
-                    </h3>
-                    <span style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--primary-color)' }}>
-                      ₹{dish.price}
-                    </span>
-                  </div>
-                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.6', flex: 1, marginBottom: '1.25rem' }}>
-                    {dish.description}
-                  </p>
-                  <button 
-                    onClick={() => handleCTA('order')} 
-                    className="btn btn-secondary"
-                    style={{ width: '100%', padding: '0.75rem', fontSize: '0.85rem' }}
-                  >
-                    Order Dish
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
-            <button 
-              onClick={() => handleCTA('menu')} 
-              className="btn btn-primary"
-              style={{ padding: '0.9rem 2.5rem' }}
-            >
-              View Complete Menu ({siteConfig.menu.reduce((acc, cat) => acc + cat.items.length, 0)} Items)
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. MERGED REVIEWS & TESTIMONIALS SECTION */}
-      <section 
-        id="reviews" 
-        style={{ 
-          padding: '6rem 2rem', 
-          backgroundColor: 'var(--surface-color)',
-          borderTop: '1px solid var(--border-color)',
-          borderBottom: '1px solid var(--border-color)'
-        }}
-      >
-        <div className="container">
-          <div className="section-header" style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-            <span className="section-title-sub">Verified Guest Stories</span>
-            <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontFamily: "'Playfair Display', serif", marginBottom: '1rem' }}>
-              Customer Reviews & Ratings
-            </h2>
-            <p style={{ color: 'var(--text-muted)', maxWidth: '620px', margin: '0 auto', fontSize: '1rem' }}>
-              Here is what food lovers from Srinagar and visiting travelers have to say about their Barnacle Bistro experience.
-            </p>
-          </div>
-
-          {/* Rating Summary Strip */}
-          <div 
-            className="glass-panel" 
-            style={{ 
-              maxWidth: '750px', 
-              margin: '0 auto 3rem auto', 
-              padding: '1.5rem 2rem', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'space-around',
-              flexWrap: 'wrap',
-              gap: '1.5rem',
-              borderRadius: '20px'
-            }}
-          >
-            <div style={{ textAlign: 'center' }}>
-              <span style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--primary-color)', fontFamily: "'Playfair Display', serif" }}>
-                4.5
-              </span>
-              <div style={{ display: 'flex', gap: '3px', justifyContent: 'center', marginTop: '0.2rem' }}>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} size={15} fill="#24963f" style={{ color: '#24963f' }} />
-                ))}
-              </div>
-              <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.3rem' }}>Average Rating</p>
-            </div>
-
-            <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--border-color)' }} className="desktop-only-divider" />
-
-            <div style={{ textAlign: 'center' }}>
-              <span style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--text-heading)' }}>500+</span>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Google & Zomato Reviews</p>
-            </div>
-
-            <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--border-color)' }} className="desktop-only-divider" />
-
-            <div style={{ textAlign: 'center' }}>
-              <span style={{ fontSize: '1.8rem', fontWeight: 700, color: '#24963f' }}>98%</span>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Recommendation Rate</p>
-            </div>
-          </div>
-
-          {/* Reviews Grid (Green Stars, No Profile Avatars) */}
-          <div className="reviews-grid">
-            {siteConfig.reviews.map((review) => (
-              <div key={review.id} className="review-card glass-panel">
-                <div style={{ position: 'absolute', top: '1rem', right: '1.5rem', color: 'var(--primary-color)', opacity: 0.08, pointerEvents: 'none' }}>
-                  <Quote size={64} fill="currentColor" />
-                </div>
-
-                {/* Stars — Green */}
-                <div style={{ display: 'flex', gap: '3px', marginBottom: '1rem' }}>
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
-                      key={i}
-                      size={16}
-                      fill={i < review.rating ? '#24963f' : 'none'}
-                      style={{ color: i < review.rating ? '#24963f' : 'var(--text-muted)' }}
-                    />
-                  ))}
-                </div>
-
-                <p style={{ fontSize: '0.98rem', color: 'var(--text-color)', fontWeight: 300, fontStyle: 'italic', lineHeight: '1.7', flex: 1, position: 'relative', zIndex: 1 }}>
-                  "{review.text}"
-                </p>
-
-                <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1rem', marginTop: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <div>
-                    <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-heading)', marginBottom: '2px' }}>{review.author}</h4>
-                    <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{review.date}</p>
-                  </div>
-                  <span style={{ fontSize: '0.65rem', color: '#24963f', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', background: 'rgba(36,150,63,0.1)', padding: '0.25rem 0.6rem', borderRadius: '20px' }}>
-                    ✓ Verified Dining
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 6. MERGED FREQUENTLY ASKED QUESTIONS (FAQ) SECTION */}
+      {/* 4. FREQUENTLY ASKED QUESTIONS (FAQ) SECTION — BEFORE REVIEWS */}
       <section id="faq" style={{ padding: '6rem 2rem', backgroundColor: 'var(--bg-color)' }}>
         <div className="container">
           <div className="section-header" style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
@@ -508,38 +324,117 @@ export default function Home({ setCurrentPage }: HomeProps) {
         </div>
       </section>
 
-      {/* 7. BOTTOM CTA CALLOUT BANNER */}
+      {/* 5. CUSTOMER REVIEWS & TESTIMONIALS SECTION — AFTER FAQ (50 Kashmiri Reviews) */}
       <section 
+        id="reviews" 
         style={{ 
-          padding: '5rem 2rem', 
-          backgroundColor: 'var(--surface-color)', 
-          borderTop: '1px solid var(--border-color)',
-          textAlign: 'center' 
+          padding: '6rem 2rem', 
+          backgroundColor: 'var(--surface-color)',
+          borderTop: '1px solid var(--border-color)'
         }}
       >
-        <div className="container" style={{ maxWidth: '780px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', fontFamily: "'Playfair Display', serif", marginBottom: '1.2rem', color: 'var(--text-heading)' }}>
-            Ready to Experience Barnacle Bistro?
-          </h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', lineHeight: '1.7', marginBottom: '2rem' }}>
-            Join us in Gulshanabad Hyderpora for an exquisite dining experience, or order directly for prompt home delivery across Srinagar.
-          </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button 
-              onClick={() => handleCTA('order')} 
-              className="btn btn-primary"
-              style={{ padding: '0.9rem 2.2rem', fontSize: '0.95rem' }}
-            >
-              Order Online / Reserve Table
-            </button>
-            <a 
-              href="tel:+919906387311"
-              className="btn btn-secondary"
-              style={{ padding: '0.9rem 2.2rem', fontSize: '0.95rem' }}
-            >
-              Call: +91 9906387311
-            </a>
+        <div className="container">
+          <div className="section-header" style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+            <span className="section-title-sub">Verified Guest Stories</span>
+            <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontFamily: "'Playfair Display', serif", marginBottom: '1rem' }}>
+              Customer Reviews & Ratings ({siteConfig.reviews.length})
+            </h2>
+            <p style={{ color: 'var(--text-muted)', maxWidth: '620px', margin: '0 auto', fontSize: '1rem' }}>
+              Here is what food lovers from Srinagar, Kashmir and visiting guests have to say about their Barnacle Bistro experience.
+            </p>
           </div>
+
+          {/* Rating Summary Strip */}
+          <div 
+            className="glass-panel" 
+            style={{ 
+              maxWidth: '750px', 
+              margin: '0 auto 3rem auto', 
+              padding: '1.5rem 2rem', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'space-around',
+              flexWrap: 'wrap',
+              gap: '1.5rem',
+              borderRadius: '20px'
+            }}
+          >
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--primary-color)', fontFamily: "'Playfair Display', serif" }}>
+                4.5
+              </span>
+              <div style={{ display: 'flex', gap: '3px', justifyContent: 'center', marginTop: '0.2rem' }}>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} size={15} fill="#24963f" style={{ color: '#24963f' }} />
+                ))}
+              </div>
+              <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.3rem' }}>Average Rating</p>
+            </div>
+
+            <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--border-color)' }} className="desktop-only-divider" />
+
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--text-heading)' }}>500+</span>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Google & Zomato Reviews</p>
+            </div>
+
+            <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--border-color)' }} className="desktop-only-divider" />
+
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ fontSize: '1.8rem', fontWeight: 700, color: '#24963f' }}>98%</span>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Recommendation Rate</p>
+            </div>
+          </div>
+
+          {/* Reviews Grid (Green Stars, No Profile Avatars) */}
+          <div className="reviews-grid">
+            {siteConfig.reviews.slice(0, visibleReviews).map((review) => (
+              <div key={review.id} className="review-card glass-panel">
+                <div style={{ position: 'absolute', top: '1rem', right: '1.5rem', color: 'var(--primary-color)', opacity: 0.08, pointerEvents: 'none' }}>
+                  <Quote size={64} fill="currentColor" />
+                </div>
+
+                {/* Stars — Green */}
+                <div style={{ display: 'flex', gap: '3px', marginBottom: '1rem' }}>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      size={16}
+                      fill={i < review.rating ? '#24963f' : 'none'}
+                      style={{ color: i < review.rating ? '#24963f' : 'var(--text-muted)' }}
+                    />
+                  ))}
+                </div>
+
+                <p style={{ fontSize: '0.98rem', color: 'var(--text-color)', fontWeight: 300, fontStyle: 'italic', lineHeight: '1.7', flex: 1, position: 'relative', zIndex: 1 }}>
+                  "{review.text}"
+                </p>
+
+                <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1rem', marginTop: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div>
+                    <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-heading)', marginBottom: '2px' }}>{review.author}</h4>
+                    <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{review.date}</p>
+                  </div>
+                  <span style={{ fontSize: '0.65rem', color: '#24963f', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', background: 'rgba(36,150,63,0.1)', padding: '0.25rem 0.6rem', borderRadius: '20px' }}>
+                    ✓ Verified Dining
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Load More Reviews Button */}
+          {visibleReviews < siteConfig.reviews.length && (
+            <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
+              <button
+                onClick={loadMoreReviews}
+                className="btn btn-primary"
+                style={{ padding: '0.9rem 2.5rem', fontSize: '0.95rem', fontWeight: 700 }}
+              >
+                Load More Reviews ({siteConfig.reviews.length - visibleReviews} Remaining)
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

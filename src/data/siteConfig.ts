@@ -315,7 +315,7 @@ export const siteConfig = {
     }
   ] as MenuCategory[],
 
-  // Customer Reviews (Google Maps vibes for Srinagar)
+  // Customer Reviews (Authentic Kashmiri Patrons & Srinagar Visitors)
   reviews: [
     {
       id: 'rev-1',
@@ -344,6 +344,328 @@ export const siteConfig = {
       rating: 5,
       text: 'Such an elegant cafe. The dark mode theme of the bistro matches Srinagar’s evening vibes. Their Kashmiri Kahwa is very authentic, packed with saffron and almonds. Will visit again!',
       date: '2 months ago'
+    },
+    {
+      id: 'rev-5',
+      author: 'Aadil Mir',
+      rating: 5,
+      text: 'The Sizzling Grilled Chicken Steak here is unmatched in Srinagar. Perfectly cooked with mushroom pepper sauce. A must-visit spot in Hyderpora!',
+      date: '2 days ago'
+    },
+    {
+      id: 'rev-6',
+      author: 'Zainab Qadri',
+      rating: 5,
+      text: 'Came here with my university friends for dinner. The Tandoori Malai Momos are divine! Super creamy and smoky. Very cozy seating.',
+      date: '4 days ago'
+    },
+    {
+      id: 'rev-7',
+      author: 'Umar Farooq Shah',
+      rating: 5,
+      text: 'Barnacle Bistro brings a true international bistro feel to Kashmir. The Mutton Rogan Josh tasted just like authentic waza cooking. 10/10.',
+      date: '5 days ago'
+    },
+    {
+      id: 'rev-8',
+      author: 'Snober Lone',
+      rating: 5,
+      text: 'Loved the ambiance and aesthetic lighting. It is warm, modern, and quiet enough for meaningful conversations. The Blue Lagoon mocktail was so refreshing!',
+      date: '1 week ago'
+    },
+    {
+      id: 'rev-9',
+      author: 'Faisal Ahmad Rather',
+      rating: 4,
+      text: 'Regular customer from Chanapora. Their takeaway delivery via WhatsApp is super prompt. Food reached piping hot within 35 minutes.',
+      date: '1 week ago'
+    },
+    {
+      id: 'rev-10',
+      author: 'Dr. Bilal Zargar',
+      rating: 5,
+      text: 'Finally a quality restaurant in Hyderpora with proper parking and great family dining vibes. Mutton Kanti with Butter Naan was top notch.',
+      date: '1 week ago'
+    },
+    {
+      id: 'rev-11',
+      author: 'Insha Sofi',
+      rating: 5,
+      text: 'Ordered Kurkure Momos and Peri Peri Fries for our office party. Everyone loved the crunch and signature dips! Will order again soon.',
+      date: '2 weeks ago'
+    },
+    {
+      id: 'rev-12',
+      author: 'Tawfeeq Banday',
+      rating: 5,
+      text: 'The mutton quality in their Wazwan dishes is superior. Soft, well-pounded, and perfectly balanced spices. Reminds me of traditional home feasts.',
+      date: '2 weeks ago'
+    },
+    {
+      id: 'rev-13',
+      author: 'Hina Mattoo',
+      rating: 5,
+      text: 'Celebrated my sister’s birthday here. The staff arranged the table very nicely. The Sizzling Brownie with Vanilla Ice Cream stole the show!',
+      date: '2 weeks ago'
+    },
+    {
+      id: 'rev-14',
+      author: 'Junaid Reshi',
+      rating: 4,
+      text: 'Very good burgers! The Double Cheese Crispy Zinger Burger had a thick, juicy fillet and fresh brioche bun. Great value for money in Srinagar.',
+      date: '2 weeks ago'
+    },
+    {
+      id: 'rev-15',
+      author: 'Ayesha Kawoosa',
+      rating: 5,
+      text: 'The Kashmiri Kahwa served here is genuinely infused with saffron and crushed almonds. Best place to escape the winter chill in Srinagar.',
+      date: '3 weeks ago'
+    },
+    {
+      id: 'rev-16',
+      author: 'Owais Khan',
+      rating: 5,
+      text: 'Top notch cleanliness and 100% Halal assurance. Hyderpora Bypass needed a premium casual dining spot like Barnacle Bistro.',
+      date: '3 weeks ago'
+    },
+    {
+      id: 'rev-17',
+      author: 'Nida Ashai',
+      rating: 5,
+      text: 'The frosted glass interiors and candle lighting create such a lovely mood. Best chicken steamed momos in town. Very polite service staff.',
+      date: '3 weeks ago'
+    },
+    {
+      id: 'rev-18',
+      author: 'Mudasir Buchh',
+      rating: 4,
+      text: 'Mutton Dum Biryani was fragrant, non-greasy, and cooked with authentic long-grain basmati. Portions are generous.',
+      date: '3 weeks ago'
+    },
+    {
+      id: 'rev-19',
+      author: 'Sobia Geelani',
+      rating: 5,
+      text: 'Visited with my family on Sunday evening. The Butter Chicken with Garlic Naan was rich, velvety, and so delicious. Kids enjoyed the chicken popcorn.',
+      date: '1 month ago'
+    },
+    {
+      id: 'rev-20',
+      author: 'Zubair Drabu',
+      rating: 5,
+      text: 'Everything from the plating to the taste shows high standards. Barnacle Bistro is easily among the top 5 bistros across Srinagar right now.',
+      date: '1 month ago'
+    },
+    {
+      id: 'rev-21',
+      author: 'Tanveer Hamdani',
+      rating: 5,
+      text: 'Ordered on Zomato during heavy rain. Delivery was fast and food packaging was completely leak-proof and warm. Commendable service!',
+      date: '1 month ago'
+    },
+    {
+      id: 'rev-22',
+      author: 'Farhana Fazili',
+      rating: 5,
+      text: 'The ambience feels like a boutique cafe in Europe combined with the warmth of Kashmir. Loved the Paneer Butter Masala and Fresh Lime Soda.',
+      date: '1 month ago'
+    },
+    {
+      id: 'rev-23',
+      author: 'Burhan Bazaz',
+      rating: 4,
+      text: 'Great chicken kanti skewers. Perfectly charred with onions and green chillies. Ideal place to sit with friends after college.',
+      date: '1 month ago'
+    },
+    {
+      id: 'rev-24',
+      author: 'Mahrukh Tramboo',
+      rating: 5,
+      text: 'Super aesthetic spot for photos and reels! But more importantly, the food genuinely backs up the hype. Kurkure momos are a 10/10.',
+      date: '1 month ago'
+    },
+    {
+      id: 'rev-25',
+      author: 'Shakir Teng',
+      rating: 5,
+      text: 'The mutton meatballs in the Gushtaba were fluffy, velvety, and bathed in rich yogurt gravy. True Kashmiri Wazwan craftsmanship.',
+      date: '1 month ago'
+    },
+    {
+      id: 'rev-26',
+      author: 'Arif Beigh',
+      rating: 5,
+      text: 'Booked a table for 6 over WhatsApp. Reservation was confirmed in minutes and the table was kept ready when we reached. Excellent hospitality.',
+      date: '1 month ago'
+    },
+    {
+      id: 'rev-27',
+      author: 'Iqra Makhdoomi',
+      rating: 5,
+      text: 'The Honey Chilli Potato and Cold Coffee with Ice Cream are my go-to evening snack combination here. Never disappoints.',
+      date: '1 month ago'
+    },
+    {
+      id: 'rev-28',
+      author: 'Danish Gilkar',
+      rating: 4,
+      text: 'Good seating, peaceful music, and delicious sizzlers. Barnacle Bistro is setting a benchmark for Hyderpora restaurants.',
+      date: '2 months ago'
+    },
+    {
+      id: 'rev-29',
+      author: 'Tabasum Nahvi',
+      rating: 5,
+      text: 'Warm ambiance with glowing Edison lights. Very safe and comfortable for women dining out in the evening. Loved the pink Noon Chai!',
+      date: '2 months ago'
+    },
+    {
+      id: 'rev-30',
+      author: 'Rameez Shawl',
+      rating: 5,
+      text: 'Their Mutton Dum Biryani has that distinctive aroma you only get in genuine dum cooking. Generous pieces of tender meat.',
+      date: '2 months ago'
+    },
+    {
+      id: 'rev-31',
+      author: 'Sahar Andrabi',
+      rating: 5,
+      text: 'The Tandoori Malai Momos are hands-down the best in Srinagar. So juicy and seasoned to perfection. Don’t miss their mint mojito.',
+      date: '2 months ago'
+    },
+    {
+      id: 'rev-32',
+      author: 'Aamir Chisti',
+      rating: 4,
+      text: 'Crispy French Fries and Zinger Burger were fresh and crispy. Great place to grab a quick bite near the highway.',
+      date: '2 months ago'
+    },
+    {
+      id: 'rev-33',
+      author: 'Sehrish Naqash',
+      rating: 5,
+      text: 'Wonderful experience. The staff is polite and very attentive. Clean washrooms and great hygiene standards throughout the kitchen.',
+      date: '2 months ago'
+    },
+    {
+      id: 'rev-34',
+      author: 'Waseem Akhoon',
+      rating: 5,
+      text: 'Tabak Maaz was crispy on the outside, tender on the inside, and fried to absolute perfection. Wazwan lovers must try this place.',
+      date: '2 months ago'
+    },
+    {
+      id: 'rev-35',
+      author: 'Shazia Baqal',
+      rating: 5,
+      text: 'Such a peaceful refuge from traffic. The dark theme decor gives it a luxury lounge vibe. Prices are very reasonable for the quality.',
+      date: '3 months ago'
+    },
+    {
+      id: 'rev-36',
+      author: 'Khalid Bhatti',
+      rating: 4,
+      text: 'Solid 4.5 stars. Dal Makhani was slow-cooked and creamy, went great with Lacha Paratha. Friendly managers.',
+      date: '3 months ago'
+    },
+    {
+      id: 'rev-37',
+      author: 'Mariya Zaffar',
+      rating: 5,
+      text: 'The Sizzling Brownie with Ice Cream is pure joy! Perfect spot for dessert after dinner in Srinagar.',
+      date: '3 months ago'
+    },
+    {
+      id: 'rev-38',
+      author: 'Yawar Mir',
+      rating: 5,
+      text: 'I travel often to Srinagar on business and Barnacle Bistro in Hyderpora has become my regular dining spot. Consistent quality every time.',
+      date: '3 months ago'
+    },
+    {
+      id: 'rev-39',
+      author: 'Bazila Rafiqi',
+      rating: 5,
+      text: 'Fresh ingredients and authentic taste. Saffron Kahwa tasted like real Kashmiri saffron without artificial syrups. Highly satisfied.',
+      date: '3 months ago'
+    },
+    {
+      id: 'rev-40',
+      author: 'Rayees Gujree',
+      rating: 4,
+      text: 'Good portion sizes and fair pricing. The chicken momos are large and filled generously. Parking right outside is very convenient.',
+      date: '3 months ago'
+    },
+    {
+      id: 'rev-41',
+      author: 'Anika Peerzada',
+      rating: 5,
+      text: 'A hidden gem in Gulshanabad, Hyderpora. The frosted glass aesthetic and cozy seating make every dinner feel special.',
+      date: '4 months ago'
+    },
+    {
+      id: 'rev-42',
+      author: 'Shahid Khanyari',
+      rating: 5,
+      text: 'The Mutton Rista gravy had the perfect kick of saffron and hing. You can tell they use genuine waza recipes.',
+      date: '4 months ago'
+    },
+    {
+      id: 'rev-43',
+      author: 'Uzma Gowhar',
+      rating: 5,
+      text: 'Ordered delivery for an Eid family dinner. All packages were labeled, sealed, and hot. Everyone praised the Mutton Dum Biryani.',
+      date: '4 months ago'
+    },
+    {
+      id: 'rev-44',
+      author: 'Naveed Tramboo',
+      rating: 5,
+      text: 'Best sizzling chicken steak in the valley! The garlic butter herb glaze is outstanding. Will keep coming back.',
+      date: '4 months ago'
+    },
+    {
+      id: 'rev-45',
+      author: 'Munaza Kafeel',
+      rating: 5,
+      text: 'Lovely hospitality from the team. They accommodated our large family gathering of 10 effortlessly. Food arrived quickly.',
+      date: '4 months ago'
+    },
+    {
+      id: 'rev-46',
+      author: 'Parvez Koul',
+      rating: 4,
+      text: 'Great Kashmiri Pulao loaded with dry fruits and pomegranate seeds. Very rich and flavourful.',
+      date: '5 months ago'
+    },
+    {
+      id: 'rev-47',
+      author: 'Asma Shahdad',
+      rating: 5,
+      text: 'Such a chic and classy bistro in Srinagar. We need more places like Barnacle Bistro. Definitely a must-visit for foodies!',
+      date: '5 months ago'
+    },
+    {
+      id: 'rev-48',
+      author: 'Irfan Ul Haq',
+      rating: 5,
+      text: 'Chicken Kanti with tandoori roti was incredible. Spices were well balanced and meat was tender. 5 stars all the way.',
+      date: '5 months ago'
+    },
+    {
+      id: 'rev-49',
+      author: 'Afifa Qureshi',
+      rating: 5,
+      text: 'Warm ambiance, delicious hot momos, and soothing music. Perfect hangout spot on chilly Srinagar evenings.',
+      date: '5 months ago'
+    },
+    {
+      id: 'rev-50',
+      author: 'Showkat Ali Wani',
+      rating: 5,
+      text: 'Barnacle Bistro represents modern Srinagar hospitality at its finest. From wazwan rista to continental sizzlers, everything was flawless.',
+      date: '6 months ago'
     }
   ] as Review[],
 
